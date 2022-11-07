@@ -1,0 +1,3 @@
+class EndBoss extends Enemy {
+
+}

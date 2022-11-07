@@ -1,0 +1,3 @@
+class JellyFish extends Enemy {
+
+}

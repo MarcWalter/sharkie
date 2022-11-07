@@ -1,0 +1,3 @@
+class Sharkie extends MovableObject {
+   
+}
