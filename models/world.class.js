@@ -1,9 +1,12 @@
 class World {
     sharkie = new Sharkie();
     enemies = [
-        new JellyFish(),
-        new JellyFish(),
+        new PufferFish(),
+        new PufferFish(),
         new PufferFish()
+    ];
+    backgrounds = [
+        new Water()
     ];
     canvas;
     ctx;
@@ -11,15 +14,29 @@ class World {
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.draw();
     }
 
     draw() {
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.sharkie.img, this.sharkie.x, this.sharkie.y, this.sharkie.width, this.sharkie.height);
         
+        this.addObjectsToMap(this.backgrounds);
+        this.addToMap(this.sharkie);
+        this.addObjectsToMap(this.enemies);
+
         let self = this;
         requestAnimationFrame(function() {
             self.draw();
         });
     }
+
+        addToMap(object) {
+            this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        }
+
+        addObjectsToMap(objects) {
+            objects.forEach(object => {
+                this.addToMap(object);
+            })
+        }
 }

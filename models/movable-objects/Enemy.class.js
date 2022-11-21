@@ -1,3 +1,7 @@
-class Enemy extends MovableObject{
+class Enemy extends MovableObject {
 
+
+    constructor() {
+        super();
+    }
 }
