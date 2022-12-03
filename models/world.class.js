@@ -6,7 +6,11 @@ class World {
         new PufferFish()
     ];
     backgrounds = [
-        new Water()
+        new Water(),
+        new Light(),
+        new Fondo2(),
+        new Fondo1(),
+        new Floor()
     ];
     canvas;
     ctx;
