@@ -1,9 +1,19 @@
 class World {
     sharkie = new Sharkie();
     enemies = [
+
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
         new PufferFish(),
         new PufferFish(),
         new PufferFish()
+
     ];
     backgrounds = [
         new Water(),

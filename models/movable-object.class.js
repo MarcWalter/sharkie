@@ -5,6 +5,7 @@ class MovableObject {
    height = 150;
    width = 150;
    imgCache = {};
+   currentImg = 0;
 
    loadImage(path) {
       this.img = new Image();
@@ -19,11 +20,33 @@ class MovableObject {
       });
    }
 
-   moveRight() {
-      console.log('Moving right')
+   moveRight(speed) {
+      setInterval(() => {
+         this.x += speed;
+     }, 1000 / 60)
+
    }
 
-   moveLeft() {
-
+   moveLeft(speed) {
+      setInterval(() => {
+         this.x -= speed;
+     }, 1000 / 60)
    }
+
+   moveY() {
+      setInterval(() => {
+         this.y -= this.yMove;
+     }, 1000 / 60)
+     this.changeY();
+   }
+
+   animate(t) {
+      setInterval(() => {
+          let i = this.currentImg % this.IMAGES_ANIMATION.length; 
+          let path = this.IMAGES_ANIMATION[i];
+          this.img = this.imgCache[path];
+
+          this.currentImg++;
+      }, t)
+  }
 }

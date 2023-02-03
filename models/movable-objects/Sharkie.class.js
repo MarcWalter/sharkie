@@ -1,5 +1,5 @@
 class Sharkie extends MovableObject {
-    IMAGES_WALKING = [
+    IMAGES_ANIMATION = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
         'img/1.Sharkie/1.IDLE/3.png',
@@ -19,22 +19,12 @@ class Sharkie extends MovableObject {
         'img/1.Sharkie/1.IDLE/17.png',
         'img/1.Sharkie/1.IDLE/18.png',
     ];
-    currentImg = 0;
+ 
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
 
-        this.loadImages(this.IMAGES_WALKING);
-        this.animate();
-    }
-
-    animate() {
-        setInterval(() => {
-            let i = this.currentImg % this.IMAGES_WALKING.length; 
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imgCache[path];
-
-            this.currentImg++;
-        }, 200)
+        this.loadImages(this.IMAGES_ANIMATION);
+        this.animate(200);
     }
 }
