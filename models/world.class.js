@@ -24,33 +24,40 @@ class World {
     ];
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
+    }
+
+    setWorld() {
+        this.sharkie.world = this;
     }
 
     draw() {
-        this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
-        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         this.addObjectsToMap(this.backgrounds);
         this.addToMap(this.sharkie);
         this.addObjectsToMap(this.enemies);
 
         let self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
     }
 
-        addToMap(object) {
-            this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
-        }
+    addToMap(object) {
+        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+    }
 
-        addObjectsToMap(objects) {
-            objects.forEach(object => {
-                this.addToMap(object);
-            })
-        }
+    addObjectsToMap(objects) {
+        objects.forEach(object => {
+            this.addToMap(object);
+        })
+    }
 }

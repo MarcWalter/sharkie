@@ -1,4 +1,5 @@
 class Sharkie extends MovableObject {
+
     IMAGES_ANIMATION = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -19,12 +20,86 @@ class Sharkie extends MovableObject {
         'img/1.Sharkie/1.IDLE/17.png',
         'img/1.Sharkie/1.IDLE/18.png',
     ];
- 
+
+    IMAGES_SWIMMING = [
+        'img/1.Sharkie/3.Swim/1.png',
+        'img/1.Sharkie/3.Swim/2.png',
+        'img/1.Sharkie/3.Swim/3.png',
+        'img/1.Sharkie/3.Swim/4.png',
+        'img/1.Sharkie/3.Swim/5.png',
+        'img/1.Sharkie/3.Swim/6.png',
+    ];
+
+    world;
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
-
         this.loadImages(this.IMAGES_ANIMATION);
-        this.animate(200);
+        this.loadImages(this.IMAGES_SWIMMING);
+        
+        this.animateSharkie(200);
+        this.swimAnimation(8)
+        this.moveSharkieRight(2.5);
+        this.moveSharkieLeft(2.5);
+        this.moveSharkieUp(2.5);
+        this.moveSharkieDown(2.5);
+    }
+
+     animateSharkie(t) {
+        setInterval(() => {
+            if (this.world.keyboard.D == false && this.world.keyboard.A == false && this.world.keyboard.W == false && this.world.keyboard.S == false) {
+
+                let i = this.currentImg % this.IMAGES_ANIMATION.length;
+                let path = this.IMAGES_ANIMATION[i];
+                this.img = this.imgCache[path];
+
+                this.currentImg++;
+            }
+
+        }, t)
+    }
+
+    swimAnimation(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.D || this.world.keyboard.A) {
+                let i = this.currentImg % this.IMAGES_SWIMMING.length;
+                let path = this.IMAGES_SWIMMING[i];
+                this.img = this.imgCache[path];
+
+                this.currentImg++;
+            }
+        }, 1000 / speed)
+    }
+
+    moveSharkieRight(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.D) {
+                this.x += speed;
+            }
+        }, 1000 / 60)
+    }
+
+    moveSharkieLeft(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.A) {
+                this.x -= speed;
+            }
+        }, 1000 / 60)
+    }
+
+    moveSharkieUp(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.W) {
+                this.y -= speed;
+            }
+        }, 1000 / 60)
+    }
+
+    moveSharkieDown(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.S) {
+                this.y += speed;
+            }
+        }, 1000 / 60)
     }
 }
