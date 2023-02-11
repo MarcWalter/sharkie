@@ -31,21 +31,24 @@ class Sharkie extends MovableObject {
     ];
 
     world;
+    x_start = 150;
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_ANIMATION);
         this.loadImages(this.IMAGES_SWIMMING);
-        
+
+        this.x = this.x_start;
+
         this.animateSharkie(200);
         this.swimAnimation(8)
-        this.moveSharkieRight(2.5);
-        this.moveSharkieLeft(2.5);
+        this.moveSharkieRight(5); //2.5
+        this.moveSharkieLeft(5);
         this.moveSharkieUp(2.5);
         this.moveSharkieDown(2.5);
     }
 
-     animateSharkie(t) {
+    animateSharkie(t) {
         setInterval(() => {
             if (this.world.keyboard.D == false && this.world.keyboard.A == false && this.world.keyboard.W == false && this.world.keyboard.S == false) {
 
@@ -68,6 +71,8 @@ class Sharkie extends MovableObject {
 
                 this.currentImg++;
             }
+            backgroundPosition = Math.round(this.x / (720 * 2));
+            xPositionSharky = this.x;
         }, 1000 / speed)
     }
 
@@ -75,6 +80,8 @@ class Sharkie extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.D) {
                 this.x += speed;
+                this.otherDirection = false;
+                this.world.camera_x = this.x_start - this.x;
             }
         }, 1000 / 60)
     }
@@ -83,6 +90,8 @@ class Sharkie extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.A) {
                 this.x -= speed;
+                this.otherDirection = true;
+                this.world.camera_x = this.x_start - this.x;
             }
         }, 1000 / 60)
     }

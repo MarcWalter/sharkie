@@ -4,6 +4,12 @@ class Light extends Background {
 
     constructor() {
         super().loadImage(this.imgPath);
+        this.setX();
     }
 
+    setX() {
+        setInterval(() => {
+            this.x = xPositionSharky - 500;
+        }, 1000/60);
+    }
 }
