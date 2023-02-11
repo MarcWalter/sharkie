@@ -1,8 +1,8 @@
 class Background extends MovableObject {
     x = 0;
     y = 0;
-    width = canvas.width * 2;
-    height = canvas.height;
+    width = 720 * 2;
+    height = 480;
     xStart = 0;
 
 

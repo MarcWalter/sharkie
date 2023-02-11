@@ -1,36 +1,9 @@
 class World {
     sharkie = new Sharkie();
-    enemies = [
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish()
 
-    ];
-    backgrounds = [
-        new Water(0), // backround middle
-        new Fondo2(0),
-        new Fondo1L(0),
-        new Floor(0),
-        new Water(canvas.width * 2 - 3), // background before sharkie
-        // new Light(canvas.width * 2- 3),
-        new Fondo2(canvas.width * 2- 3),
-        new Fondo1L(canvas.width * 2- 3),
-        new Floor(canvas.width * 2- 3),
-        new Water(-canvas.width * 2 + 3), // background after sharkie
-        // new Light(-canvas.width * 2 + 3),
-        new Fondo2(-canvas.width * 2 + 3),
-        new Fondo1L(-canvas.width * 2 + 3),
-        new Floor(-canvas.width * 2 + 3),
-        new Light(0)
-    ];
+    enemies = level1.enemies;
+    backgrounds = level1.backgrounds;
+
     canvas;
     ctx;
     keyboard;
