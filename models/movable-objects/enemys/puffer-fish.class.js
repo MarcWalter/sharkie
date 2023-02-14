@@ -22,26 +22,16 @@ class PufferFish extends Enemy {
     }
 
     swim() {
-        this.moveLeft(this.speed);
-        this.moveY();
+        this.moveY(0.1);
+
+        if (Math.random() < 0.5) {
+            this.moveLeft(this.speed);
+        }
+        else {
+            this.moveRight(this.speed);
+            this.otherDirection = true;
+        }
     }
 
-    changeY() {
-        setInterval(() => {
-            let n = Math.random();
-
-            if (this.y > 400) { //fish cannot reach bottom
-                this.y = 399;
-                this.yMove = 0;
-            }
-
-            if (n < 0.5) {
-                this.yMove += Math.random() * 0.1;
-            }
-            else {
-                this.yMove -= Math.random() * 0.1;
-            }
-
-        }, 1000 / 60)
-    }
+    
 }

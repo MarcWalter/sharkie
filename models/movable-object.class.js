@@ -33,11 +33,11 @@ class MovableObject {
       }, 1000 / 60)
    }
 
-   moveY() {
+   moveY(speed) {
       setInterval(() => {
          this.y -= this.yMove;
       }, 1000 / 60)
-      this.changeY();
+      this.changeY(speed);
    }
 
    animate(t) {

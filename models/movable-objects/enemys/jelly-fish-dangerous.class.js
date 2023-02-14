@@ -24,25 +24,7 @@ class JellyFishDangerous extends Enemy {
 
     swim() {
         this.moveLeft(this.speed);
-        this.moveY();
+        this.moveY(0.01);
     }
 
-    changeY() {
-        setInterval(() => {
-            let n = Math.random();
-
-            if (this.y > 400) { //fish cannot reach bottom
-                this.y = 399;
-                this.yMove = 0;
-            }
-
-            if (n < 0.5) {
-                this.yMove += Math.random() * 0.01;
-            }
-            else {
-                this.yMove -= Math.random() * 0.01;
-            }
-
-        }, 1000 / 60)
-    }
 }
