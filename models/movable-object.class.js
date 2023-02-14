@@ -24,29 +24,39 @@ class MovableObject {
    moveRight(speed) {
       setInterval(() => {
          this.x += speed;
-     }, 1000 / 60)
+      }, 1000 / 60)
    }
 
    moveLeft(speed) {
       setInterval(() => {
          this.x -= speed;
-     }, 1000 / 60)
+      }, 1000 / 60)
    }
 
    moveY() {
       setInterval(() => {
          this.y -= this.yMove;
-     }, 1000 / 60)
-     this.changeY();
+      }, 1000 / 60)
+      this.changeY();
    }
 
    animate(t) {
       setInterval(() => {
-          let i = this.currentImg % this.IMAGES_ANIMATION.length; 
-          let path = this.IMAGES_ANIMATION[i];
-          this.img = this.imgCache[path];
+         let i = this.currentImg % this.IMAGES_ANIMATION.length;
+         let path = this.IMAGES_ANIMATION[i];
+         this.img = this.imgCache[path];
 
-          this.currentImg++;
+         this.currentImg++;
       }, t)
-  }
+   }
+
+   setX() {
+      let position = Math.random() * 7200 * 3 - 4320;
+      if (position < 150 && position > 500) { // avoid sharkie
+         this.x = position;
+      }
+      else {
+         this.x = position - 350
+      }
+   }
 }

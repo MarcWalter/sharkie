@@ -29,4 +29,14 @@ class StaticObjects {
             this.currentImg++;
         }, t)
     }
+
+    setX() {
+        let position =  Math.random() * 7200 * 3 - 4320;
+        if (position < 100 || position > 500) { // avoid sharkie
+            this.x = position;
+        }
+        else {
+            this.x = position - 600;
+        }
+    }
 }

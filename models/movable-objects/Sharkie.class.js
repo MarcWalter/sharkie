@@ -42,15 +42,15 @@ class Sharkie extends MovableObject {
 
         this.animateSharkie(200);
         this.swimAnimation(8)
-        this.moveSharkieRight(5); //2.5
-        this.moveSharkieLeft(5);
+        this.moveSharkieRight(50); //2.5
+        this.moveSharkieLeft(50);
         this.moveSharkieUp(2.5);
         this.moveSharkieDown(2.5);
     }
 
     animateSharkie(t) {
         setInterval(() => {
-            if (this.world.keyboard.D == false && this.world.keyboard.A == false && this.world.keyboard.W == false && this.world.keyboard.S == false) {
+            if (this.world.keyboard.D == false && this.world.keyboard.A == false) {
 
                 let i = this.currentImg % this.IMAGES_ANIMATION.length;
                 let path = this.IMAGES_ANIMATION[i];
@@ -97,16 +97,18 @@ class Sharkie extends MovableObject {
     }
 
     moveSharkieUp(speed) {
-        setInterval(() => {
-            if (this.world.keyboard.W) {
-                this.y -= speed;
-            }
-        }, 1000 / 60)
+        
+            setInterval(() => {
+                if (this.world.keyboard.W && this.y > -100) {
+                    this.y -= speed;
+                }
+            }, 1000 / 60)
+                
     }
 
     moveSharkieDown(speed) {
         setInterval(() => {
-            if (this.world.keyboard.S) {
+            if (this.world.keyboard.S && this.y < 355) {
                 this.y += speed;
             }
         }, 1000 / 60)

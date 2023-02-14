@@ -17,7 +17,6 @@ class JellyFishDangerous extends Enemy {
 
     constructor() {
         super().loadImage(`./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`);
-        this.x = 200 + Math.random() * 500;
         this.loadImages(this.IMAGES_ANIMATION);
         this.swim();
         this.animate(this.animationSpeed);
