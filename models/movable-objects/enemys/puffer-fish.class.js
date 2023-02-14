@@ -1,5 +1,6 @@
 class PufferFish extends Enemy {
-    height = 120;
+    height = 60;
+    width = 60;
     yMove = 0;
 
     fishType = 1 + Math.round(Math.random() * 2);

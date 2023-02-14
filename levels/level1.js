@@ -10,8 +10,15 @@ const level1 = new Level(
         new PufferFish(),
         new PufferFish(),
         new PufferFish(),
-        new PufferFish()
-
+        new PufferFish(),
+        new JellyFishRegular(),
+        new JellyFishRegular(),
+        new JellyFishRegular(),
+        new JellyFishRegular(),
+        new JellyFishDangerous(),        
+        new JellyFishDangerous(),        
+        new JellyFishDangerous(),        
+        new JellyFishDangerous()        
     ],
     [
         new Water(0), // backround middle
