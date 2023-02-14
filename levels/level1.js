@@ -18,7 +18,7 @@ const level1 = new Level(
         new JellyFishDangerous(),        
         new JellyFishDangerous(),        
         new JellyFishDangerous(),        
-        new JellyFishDangerous()        
+        new JellyFishDangerous()  
     ],
     [
         new Water(0), // backround middle
@@ -34,5 +34,17 @@ const level1 = new Level(
         new Fondo1L(-720 * 2 + 3),
         new Floor(-720 * 2 + 3),
         new Light(0)
+    ],
+    [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin()
     ]
 );

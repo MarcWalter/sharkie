@@ -4,6 +4,7 @@ class JellyFishRegular extends Enemy {
     yMove = 0;
     fishType = Math.round(Math.random() * 1);
     fishTypeArray = ['Lila', 'Yellow'];
+    animationSpeed = 150 + Math.random() * 100;
 
     IMAGES_ANIMATION = [
         `./img/2.Enemy/2 Jelly fish/Regular damage/${this.fishTypeArray[this.fishType]} 1.png`,
@@ -15,11 +16,11 @@ class JellyFishRegular extends Enemy {
     speed = + Math.random() * 0.5;
 
     constructor() {
-        super();
+        super().loadImage(`./img/2.Enemy/2 Jelly fish/Regular damage/${this.fishTypeArray[this.fishType]} 1.png`);
         this.x = 200 + Math.random() * 500;
         this.loadImages(this.IMAGES_ANIMATION);
         this.swim();
-        this.animate(200);
+        this.animate(this.animationSpeed);
     }
 
     swim() {

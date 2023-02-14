@@ -1,0 +1,3 @@
+class Barrier extends StaticObjects {
+    
+}
