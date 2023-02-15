@@ -19,10 +19,9 @@ class MovableObject {
       });
    }
 
-   loadImage(path)
-   {
+   loadImage(path)   {
       this.img = new Image();
-
+   }
 
 
    moveRight() {
@@ -37,5 +36,4 @@ class MovableObject {
         console.log('Moving left')
    }
 
-   }
 }
