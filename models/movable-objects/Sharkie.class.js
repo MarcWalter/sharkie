@@ -1,5 +1,6 @@
 class Sharkie extends MovableObject {
-    IMAGES_WALKING = [
+
+    IMAGES_ANIMATION = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
         'img/1.Sharkie/1.IDLE/3.png',
@@ -19,22 +20,97 @@ class Sharkie extends MovableObject {
         'img/1.Sharkie/1.IDLE/17.png',
         'img/1.Sharkie/1.IDLE/18.png',
     ];
-    currentImg = 0;
+
+    IMAGES_SWIMMING = [
+        'img/1.Sharkie/3.Swim/1.png',
+        'img/1.Sharkie/3.Swim/2.png',
+        'img/1.Sharkie/3.Swim/3.png',
+        'img/1.Sharkie/3.Swim/4.png',
+        'img/1.Sharkie/3.Swim/5.png',
+        'img/1.Sharkie/3.Swim/6.png',
+    ];
+
+    world;
+    x_start = 150;
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
+        this.loadImages(this.IMAGES_ANIMATION);
+        this.loadImages(this.IMAGES_SWIMMING);
 
-        this.loadImages(this.IMAGES_WALKING);
-        this.animate();
+        this.x = this.x_start;
+
+        this.animateSharkie(200);
+        this.swimAnimation(8)
+        this.moveSharkieRight(50); //2.5
+        this.moveSharkieLeft(50);
+        this.moveSharkieUp(2.5);
+        this.moveSharkieDown(2.5);
     }
 
-    animate() {
+    animateSharkie(t) {
         setInterval(() => {
-            let i = this.currentImg % this.IMAGES_WALKING.length; 
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imgCache[path];
+            if (this.world.keyboard.D == false && this.world.keyboard.A == false) {
 
-            this.currentImg++;
-        }, 200)
+                let i = this.currentImg % this.IMAGES_ANIMATION.length;
+                let path = this.IMAGES_ANIMATION[i];
+                this.img = this.imgCache[path];
+
+                this.currentImg++;
+            }
+
+        }, t)
+    }
+
+    swimAnimation(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.D || this.world.keyboard.A) {
+                let i = this.currentImg % this.IMAGES_SWIMMING.length;
+                let path = this.IMAGES_SWIMMING[i];
+                this.img = this.imgCache[path];
+
+                this.currentImg++;
+            }
+            backgroundPosition = Math.round(this.x / (720 * 2));
+            xPositionSharky = this.x;
+        }, 1000 / speed)
+    }
+
+    moveSharkieRight(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.D) {
+                this.x += speed;
+                this.otherDirection = false;
+                this.world.camera_x = this.x_start - this.x;
+            }
+        }, 1000 / 60)
+    }
+
+    moveSharkieLeft(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.A) {
+                this.x -= speed;
+                this.otherDirection = true;
+                this.world.camera_x = this.x_start - this.x;
+            }
+        }, 1000 / 60)
+    }
+
+    moveSharkieUp(speed) {
+        
+            setInterval(() => {
+                if (this.world.keyboard.W && this.y > -100) {
+                    this.y -= speed;
+                }
+            }, 1000 / 60)
+                
+    }
+
+    moveSharkieDown(speed) {
+        setInterval(() => {
+            if (this.world.keyboard.S && this.y < 355) {
+                this.y += speed;
+            }
+        }, 1000 / 60)
     }
 }

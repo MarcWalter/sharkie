@@ -1,46 +1,73 @@
 class World {
     sharkie = new Sharkie();
-    enemies = [
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish()
-    ];
-    backgrounds = [
-        new Water(),
-        new Light(),
-        new Fondo2(),
-        new Fondo1(),
-        new Floor()
-    ];
+
+    level = level1;
+    
     canvas;
     ctx;
+    keyboard;
+    camera_x = 0;
 
-    constructor(canvas) {
+
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
+        // this.setBackgrounds();
     }
+
+    setWorld() {
+        this.sharkie.world = this;
+        }
 
     draw() {
-        this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
-        
-        this.addObjectsToMap(this.backgrounds);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addObjectsToMap(this.level.backgrounds);
         this.addToMap(this.sharkie);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.staticObjects);
+
+        this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
+
     }
 
-        addToMap(object) {
-            this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+    addToMap(object) {
+        if (object.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(object.width, 0);
+            this.ctx.scale(-1, 1);
+            object.x = object.x * -1;
         }
 
-        addObjectsToMap(objects) {
-            objects.forEach(object => {
-                this.addToMap(object);
-            })
+        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+
+        if (object.otherDirection) {
+            object.x = object.x * -1;
+            this.ctx.restore();
         }
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(object => {
+            this.addToMap(object);
+        })
+    }
+
+    setBackgrounds() {
+        setInterval(() => {
+            if (this.sharkie.x > 350) {
+                this.backgrounds[0].x = 719;
+            }
+        }, 200);
+    }
 }

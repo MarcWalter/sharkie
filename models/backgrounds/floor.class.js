@@ -1,9 +1,9 @@
 class Floor extends Background {
 
-    imgPath = './img/3. Background/Layers/2. Floor/L1.png';
+    imgPath = './img/3. Background/Layers/2. Floor/L.png';
 
-    constructor() {
-        super().loadImage(this.imgPath);
+    constructor(xStart) {
+        super(xStart).loadImage(this.imgPath);
     }
 
 }
