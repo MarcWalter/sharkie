@@ -64,21 +64,21 @@ class Sharkie extends MovableObject {
 
     swimAnimation(speed) {
         setInterval(() => {
-            if (this.world.keyboard.D || this.world.keyboard.A) {
+            if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 let i = this.currentImg % this.IMAGES_SWIMMING.length;
                 let path = this.IMAGES_SWIMMING[i];
                 this.img = this.imgCache[path];
 
                 this.currentImg++;
             }
-            backgroundPosition = Math.round(this.x / (720 * 2));
+            backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
             xPositionSharky = this.x;
         }, 1000 / speed)
     }
 
     moveSharkieRight(speed) {
         setInterval(() => {
-            if (this.world.keyboard.D) {
+            if (this.world.keyboard.D || this.world.keyboard.RIGHT) {
                 this.x += speed;
                 this.otherDirection = false;
                 this.world.camera_x = this.x_start - this.x;
@@ -88,7 +88,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieLeft(speed) {
         setInterval(() => {
-            if (this.world.keyboard.A) {
+            if (this.world.keyboard.A || this.world.keyboard.LEFT) {
                 this.x -= speed;
                 this.otherDirection = true;
                 this.world.camera_x = this.x_start - this.x;
@@ -99,7 +99,7 @@ class Sharkie extends MovableObject {
     moveSharkieUp(speed) {
         
             setInterval(() => {
-                if (this.world.keyboard.W && this.y > -100) {
+                if ((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100) {
                     this.y -= speed;
                 }
             }, 1000 / 60)
@@ -108,7 +108,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieDown(speed) {
         setInterval(() => {
-            if (this.world.keyboard.S && this.y < 355) {
+            if ((this.world.keyboard.S || this.world.keyboard.DOWN) && this.y < 355) {
                 this.y += speed;
             }
         }, 1000 / 60)

@@ -31,11 +31,21 @@ class Enemy extends MovableObject {
         }, 1000 / 60)
     }
 
+    setX() {
+        let position = xPositionSharky + Math.random() * 7200 * 3 - 4320;
+        if (position < xPositionSharky - 350 || position > xPositionSharky + 750) { // avoid sharkie
+           this.x = position;
+        }
+        else {
+           this.x = position - 1000;
+        }
+     }
+
     respornIfFarAway() {
         setInterval(() => {
-            if (this.x < 2880 || this.x > 4320) {
+            if (this.x < xPositionSharky - 2880 || this.x > xPositionSharky + 4320) {
                 this.setX();
             }
-        }, 3000);
+        }, 300);
     }
 }

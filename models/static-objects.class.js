@@ -7,6 +7,11 @@ class StaticObjects {
     currentImg = 0;
     otherDirection = false;
 
+    constructor() {
+        this.setX();
+        this.respornIfFarAway();
+    }
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -30,13 +35,31 @@ class StaticObjects {
         }, t)
     }
 
+    // setX() {
+    //     let position =  Math.random() * 7200 * 3 - 4320;
+    //     if (position < 100 || position > 500) { // avoid sharkie
+    //         this.x = position;
+    //     }
+    //     else {
+    //         this.x = position - 600;
+    //     }
+    // }
+
     setX() {
-        let position =  Math.random() * 7200 * 3 - 4320;
-        if (position < 100 || position > 500) { // avoid sharkie
-            this.x = position;
+        let position = xPositionSharky + Math.random() * 7200 * 3 - 4320;
+        if (position < xPositionSharky - 350 || position > xPositionSharky + 750) { // avoid sharkie
+           this.x = position;
         }
         else {
-            this.x = position - 600;
+           this.x = position - 1000;
         }
+     }
+
+    respornIfFarAway() {
+        setInterval(() => {
+            if (this.x < xPositionSharky - 2880 || this.x > xPositionSharky + 4320) {
+                this.setX();
+            }
+        }, 300);
     }
 }

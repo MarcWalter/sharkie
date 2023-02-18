@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let backgroundPosition = 0;
-let xPositionSharky;
+let xPositionSharky = 150;
 
 function init() {
     canvas = document.getElementById('canvas');

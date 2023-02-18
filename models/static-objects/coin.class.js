@@ -3,10 +3,10 @@ class Coin extends StaticObjects {
     height = 30;
 
     IMAGES_ANIMATION = [
-        'img/4. Marcadores/1. Coins/1.png',
-        'img/4. Marcadores/1. Coins/2.png',
-        'img/4. Marcadores/1. Coins/3.png',
-        'img/4. Marcadores/1. Coins/4.png'               
+        './img/4. Marcadores/1. Coins/1.png',
+        './img/4. Marcadores/1. Coins/2.png',
+        './img/4. Marcadores/1. Coins/3.png',
+        './img/4. Marcadores/1. Coins/4.png'
     ];
 
 
@@ -15,7 +15,6 @@ class Coin extends StaticObjects {
         this.loadImages(this.IMAGES_ANIMATION);
         this.animate(200);
         this.setY();
-        this.setX();
     }
 
     setY() {

@@ -50,16 +50,6 @@ class MovableObject {
       }, t)
    }
 
-   setX() {
-      let position = Math.random() * 7200 * 3 - 4320;
-      if (position < 150 && position > 500) { // avoid sharkie
-         this.x = position;
-      }
-      else {
-         this.x = position - 350
-      }
-   }
-
    moveLeft() {
       console.log('Moving left')
    }

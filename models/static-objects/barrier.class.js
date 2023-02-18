@@ -29,7 +29,6 @@ class Barrier extends StaticObjects {
         this.barrier = this.BARRIERS[Math.round(Math.random() * 2)];
         this.loadImage(this.barrier.img);
         this.setVariables();
-        this.setX()
     }
 
     setVariables() {
