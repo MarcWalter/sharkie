@@ -42,10 +42,10 @@ class Sharkie extends MovableObject {
 
         this.animateSharkie(200);
         this.swimAnimation(8)
-        this.moveSharkieRight(50); //2.5
-        this.moveSharkieLeft(50);
-        this.moveSharkieUp(2.5);
-        this.moveSharkieDown(2.5);
+        this.moveSharkieRight(5); //2.5
+        this.moveSharkieLeft(5);
+        this.moveSharkieUp(5);
+        this.moveSharkieDown(5);
     }
 
     animateSharkie(t) {

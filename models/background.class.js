@@ -1,4 +1,4 @@
-class Background extends MovableObject {
+class Background {
     x = 0;
     y = 0;
     width = 720 * 2;
@@ -7,10 +7,14 @@ class Background extends MovableObject {
 
 
     constructor(xStart) {
-        super();
         this.setX();
         this.xStart = xStart;
     }
+
+    loadImage(path) {
+        this.img = new Image();
+        this.img.src = path;
+     }
 
     setX() {
         setInterval(() => {

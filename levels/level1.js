@@ -1,5 +1,6 @@
 const level1 = new Level(
     [
+        new EndBoss(),
         new PufferFish(),
         new PufferFish(),
         new PufferFish(),

@@ -51,7 +51,7 @@ class StaticObjects {
            this.x = position;
         }
         else {
-           this.x = position - 1000;
+           this.x = position - 2000;
         }
      }
 

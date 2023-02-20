@@ -2,7 +2,7 @@ class World {
     sharkie = new Sharkie();
 
     level = level1;
-    
+
     canvas;
     ctx;
     keyboard;
@@ -15,12 +15,12 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        // this.setBackgrounds();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.sharkie.world = this;
-        }
+    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -43,17 +43,14 @@ class World {
 
     addToMap(object) {
         if (object.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(object.width, 0);
-            this.ctx.scale(-1, 1);
-            object.x = object.x * -1;
+            this.flipImage(object);
         }
 
         this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        this.drawFrame(object);
 
         if (object.otherDirection) {
-            object.x = object.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(object);
         }
     }
 
@@ -68,6 +65,38 @@ class World {
             if (this.sharkie.x > 350) {
                 this.backgrounds[0].x = 719;
             }
+        }, 200);
+    }
+
+    flipImage(object) {
+        this.ctx.save();
+        this.ctx.translate(object.width, 0);
+        this.ctx.scale(-1, 1);
+        object.x = object.x * -1;
+    }
+
+    flipImageBack(object) {
+        object.x = object.x * -1;
+        this.ctx.restore();
+    }
+
+    drawFrame(object) {
+        if (object instanceof MovableObject || object instanceof StaticObjects) {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = '2';
+            this.ctx.strokeStyle = 'blue';
+            this.ctx.rect(object.x, object.y, object.width, object.height);
+            this.ctx.stroke();
+        }
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.sharkie.isColliding(enemy)) {
+                    this.sharkie.hit();
+                }
+            });
         }, 200);
     }
 }

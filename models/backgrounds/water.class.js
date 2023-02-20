@@ -6,4 +6,5 @@ class Water extends Background {
         super(xStart).loadImage(this.imgPath);
     }
 
+    
 }
