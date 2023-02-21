@@ -25,6 +25,12 @@ class EndBoss extends MovableObject {
     constructor() {
         super().loadImage('./img/2.Enemy/3 Final Enemy/2.floating/1.png')
         this.loadImages(this.IMAGES_ANIMATION);
-        this.animate(200);
+        this.animateEndBoss(this.IMAGES_ANIMATION, 200);
+    }
+
+    animateEndBoss(IMAGES, t) {
+        setInterval(() => {
+            this.animate(IMAGES);
+        }, t);
     }
 }

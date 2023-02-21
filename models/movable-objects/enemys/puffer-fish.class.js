@@ -18,7 +18,13 @@ class PufferFish extends Enemy {
         super().loadImage('./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png')
         this.loadImages(this.IMAGES_ANIMATION);
         this.swim();
-        this.animate(100 / this.speed);
+        this.animatePufferFish(this.IMAGES_ANIMATION, 100 / this.speed);
+    }
+
+    animatePufferFish(IMAGES, t) {
+        setInterval(() => {
+            this.animate(IMAGES);
+        }, t);
     }
 
     swim() {

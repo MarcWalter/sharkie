@@ -19,7 +19,13 @@ class JellyFishDangerous extends Enemy {
         super().loadImage(`./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`);
         this.loadImages(this.IMAGES_ANIMATION);
         this.swim();
-        this.animate(this.animationSpeed);
+        this.animateJellyFish(this.IMAGES_ANIMATION, this.animationSpeed);
+    }
+
+    animateJellyFish(IMAGES, t) {
+        setInterval(() => {
+            this.animate(IMAGES);
+        }, t);
     }
 
     swim() {

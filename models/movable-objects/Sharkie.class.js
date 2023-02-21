@@ -32,6 +32,7 @@ class Sharkie extends MovableObject {
 
     world;
     x_start = 150;
+    t = 200;
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
@@ -40,41 +41,37 @@ class Sharkie extends MovableObject {
 
         this.x = this.x_start;
 
-        this.animateSharkie(200);
-        this.swimAnimation(8)
+        this.animateSharkie(this.IMAGES_ANIMATION);
+        // this.swimAnimation(this.IMAGES_SWIMMING, 8)
         this.moveSharkieRight(5); //2.5
         this.moveSharkieLeft(5);
         this.moveSharkieUp(5);
         this.moveSharkieDown(5);
     }
 
-    animateSharkie(t) {
+    animateSharkie() {
         setInterval(() => {
             if (this.world.keyboard.D == false && this.world.keyboard.A == false) {
-
-                let i = this.currentImg % this.IMAGES_ANIMATION.length;
-                let path = this.IMAGES_ANIMATION[i];
-                this.img = this.imgCache[path];
-
-                this.currentImg++;
+                this.animate(this.IMAGES_ANIMATION)
             }
-
-        }, t)
-    }
-
-    swimAnimation(speed) {
-        setInterval(() => {
             if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                let i = this.currentImg % this.IMAGES_SWIMMING.length;
-                let path = this.IMAGES_SWIMMING[i];
-                this.img = this.imgCache[path];
-
-                this.currentImg++;
+                this.t = 1000;
+                this.animate(this.IMAGES_SWIMMING);
             }
             backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
             xPositionSharky = this.x;
-        }, 1000 / speed)
+        }, this.t)
     }
+
+    // swimAnimation(IMAGES, speed) {
+    //     setInterval(() => {
+    //         if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+    //             this.animate(IMAGES);
+    //         }
+    //         backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
+    //         xPositionSharky = this.x;
+    //     }, 1000 / speed)
+    // }
 
     moveSharkieRight(speed) {
         setInterval(() => {
@@ -97,13 +94,13 @@ class Sharkie extends MovableObject {
     }
 
     moveSharkieUp(speed) {
-        
-            setInterval(() => {
-                if ((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100) {
-                    this.y -= speed;
-                }
-            }, 1000 / 60)
-                
+
+        setInterval(() => {
+            if ((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100) {
+                this.y -= speed;
+            }
+        }, 1000 / 60)
+
     }
 
     moveSharkieDown(speed) {

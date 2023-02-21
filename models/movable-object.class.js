@@ -41,14 +41,13 @@ class MovableObject {
       this.changeY(speed);
    }
 
-   animate(t) {
-      setInterval(() => {
-         let i = this.currentImg % this.IMAGES_ANIMATION.length;
-         let path = this.IMAGES_ANIMATION[i];
-         this.img = this.imgCache[path];
+   animate(IMAGES) {
 
-         this.currentImg++;
-      }, t)
+      let i = this.currentImg % IMAGES.length;
+      let path = IMAGES[i];
+      this.img = this.imgCache[path];
+
+      this.currentImg++;
    }
 
    moveLeft() {
