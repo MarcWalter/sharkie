@@ -30,14 +30,37 @@ class Sharkie extends MovableObject {
         'img/1.Sharkie/3.Swim/6.png',
     ];
 
+    IMAGES_POISONED_BUBBEL = [
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
+        'img/1.Sharkie/1.IDLE/1.png'
+    ];
+
     world;
     x_start = 150;
-    t = 200;
+
+    W = false;
+    UP = false;
+    A = false;
+    LEFT = false;
+    S = false;
+    DOWN = false;
+    D = false;
+    RIGHT = false;
+    J = false;
+    SPACE = false;
 
     constructor() {
         super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_ANIMATION);
         this.loadImages(this.IMAGES_SWIMMING);
+        this.loadImages(this.IMAGES_POISONED_BUBBEL);
 
         this.x = this.x_start;
 
@@ -49,18 +72,46 @@ class Sharkie extends MovableObject {
         this.moveSharkieDown(5);
     }
 
+    importKeyboard() {
+        setTimeout(() => {
+            if (this.world.keyboard.D == true) {
+                this.D = true;
+            } else {
+                this.D = true;
+            }
+        }, 200);
+    }
+
+    // animateSharkie() {
+
+    //     if (this.D == false && this.A == false) {
+    //         this.animate(this.IMAGES_ANIMATION)
+    //     }
+    //     if (this.D || this.A || this.RIGHT || this.LEFT) {
+    //         this.animate(this.IMAGES_SWIMMING);
+    //     }
+
+    //     backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
+    //     xPositionSharky = this.x;
+
+    // }
+
     animateSharkie() {
-        setInterval(() => {
-            if (this.world.keyboard.D == false && this.world.keyboard.A == false) {
+        this.sharkieIntervall = setInterval(() => {
+            if (this.world.keyboard.SPACE) {
+                this.animateSingleTurn(this.IMAGES_POISONED_BUBBEL);
+            } 
+            else if (this.world.keyboard.D == false && this.world.keyboard.A == false) {
                 this.animate(this.IMAGES_ANIMATION)
             }
-            if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.t = 1000;
-                this.animate(this.IMAGES_SWIMMING);
+            else if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.animate(this.IMAGES_SWIMMING, 500);
             }
+           
+            
             backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
             xPositionSharky = this.x;
-        }, this.t)
+        }, 200)
     }
 
     // swimAnimation(IMAGES, speed) {
@@ -109,5 +160,13 @@ class Sharkie extends MovableObject {
                 this.y += speed;
             }
         }, 1000 / 60)
+    }
+
+    isSwimming() {
+        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+    }
+
+    isAttacking() {
+        return this.world.keyboard.SPACE && this.world.endboss.firstContactWithEndboss;
     }
 }

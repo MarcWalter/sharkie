@@ -9,6 +9,8 @@ class MovableObject {
    otherDirection = false;
    energy = 100;
 
+   sharkieIntervall;
+
    loadImage(path) {
       this.img = new Image();
       this.img.src = path;
@@ -41,13 +43,31 @@ class MovableObject {
       this.changeY(speed);
    }
 
-   animate(IMAGES) {
+   animate(IMAGES, t) {
 
       let i = this.currentImg % IMAGES.length;
       let path = IMAGES[i];
       this.img = this.imgCache[path];
 
       this.currentImg++;
+
+   }
+
+   animateSingleTurn(IMAGES, t) {
+      clearInterval(this.sharkieIntervall);
+      this.currentImg = 0;
+
+      let currentIntervall = setInterval(() => {
+         let i = this.currentImg % IMAGES.length;
+         let path = IMAGES[i];
+         this.img = this.imgCache[path];
+
+         this.currentImg++;
+         if (this.currentImg == IMAGES.length) { //start animateSharkie() if animateSingleTurn() showed animation one time
+               clearInterval(currentIntervall);
+               this.animateSharkie();
+         }
+      }, 100);
    }
 
    moveLeft() {
