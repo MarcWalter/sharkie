@@ -8,7 +8,6 @@ class World {
     keyboard;
     camera_x = 0;
 
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -45,15 +44,20 @@ class World {
         if (object.otherDirection) {
             this.flipImage(object);
         }
+        try {
+            this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
 
-        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        } catch (error) {
+            console.log(error);
+            console.log(object);
+        }
         this.drawFrame(object);
         // this.setCollidingPosition(object); // use instead of function below if check collisionwith frame
 
         if (object.otherDirection) {
             this.flipImageBack(object);
         }
-        this.setCollidingPosition(object); 
+        this.setCollidingPosition(object);
     }
 
     addObjectsToMap(objects) {
@@ -97,7 +101,7 @@ class World {
         // object.yColliding = object.y ;
         // object.widthColliding = object.width;
         // object.heightColliding = object.height;
-  
+
         object.xColliding = object.x + object.width * object.xCollidingFactor;    // offset for collision detection
         object.yColliding = object.y + object.height * object.yCollidingFactor;
         object.widthColliding = object.width * object.widthCollidingFactor;
@@ -107,22 +111,16 @@ class World {
     checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if (this.sharkie.isColliding(enemy)) {
-                    this.sharkie.hit();
+                if (this.sharkie.isColliding(enemy) && enemy instanceof PufferFish) {
+                    enemy.hitSharkie();
+                    this.sharkie.hurtAnimation(enemy);
                 }
             });
             this.level.staticObjects.forEach((object) => {
-                if (this.sharkie.isColliding(object)) {
-                    this.collisionWithStaticObject(object);
+                if (this.sharkie.isColliding(object) && (object instanceof Coin || object instanceof Poison)) {
+                    object.collect();
                 }
             });
         }, 200);
     }
-
-    collisionWithStaticObject(object) {
-        if(object instanceof Coin) {
-            console.log('coin collision');
-        }
-    }
-    
 }

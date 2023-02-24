@@ -88,20 +88,31 @@ class Sharkie extends MovableObject {
         './img/1.Sharkie/4.Attack/Fin slap/8.png'
     ];
 
+    IMAGES_POISONED = [
+        './img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
+    ]
+
     IMAGES_DEAD = [
-        './img/1.Sharkie/6.dead/1.Poisoned/1.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/2.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/3.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/4.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/5.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/6.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/7.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/8.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/9.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/10.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/11.png',
-        './img/1.Sharkie/6.dead/1.Poisoned/12.png'
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00001.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00002.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00003.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00004.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00005.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00006.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00007.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00008.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png'
     ];
+
+    coins = 0;
+    poison = 0;
 
     world;
     x_start = 150;
@@ -145,6 +156,7 @@ class Sharkie extends MovableObject {
         this.loadImages(this.IMAGES_FIN_SLAP);
         this.loadImages(this.IMAGES_BUBBEL);
         this.loadImages(this.IMAGES_POISONED_BUBBEL);
+        this.loadImages(this.IMAGES_POISONED);
         this.loadImages(this.IMAGES_DEAD);
     }
 
@@ -220,16 +232,36 @@ class Sharkie extends MovableObject {
         this.animateSingleTurn(this.IMAGES_DEAD, 100);
         setTimeout(() => {
             setInterval(() => {
-                if (this.y > -50) {
+                if (this.y > -90) {
                     this.y -= 2;
                 }
             }, 200 / 60)
-        }, 1500);
+        }, 500);
     }
 
     updateSharkyPosition() {
         backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
         xPositionSharky = this.x;
     }
-    
+
+    hurtAnimation(enemy) {
+        let i = 1;
+        clearInterval(this.sharkieIntervall);
+        let currentIntervall = setInterval(() => {
+            if (enemy instanceof PufferFish && i <= 5) {
+                this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${i}.png`];
+                i++
+            }
+
+            // if (enemy instanceof JellyFishRegular && i <= 3) {
+            //     this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${i}.png`];
+            //     i++
+            // }
+
+            if ((enemy instanceof PufferFish && i == 6) || (enemy instanceof PufferFish && i == 4)) {
+                this.restartAnimation();
+                clearInterval(currentIntervall);
+            }
+        }, 200);
+    }
 }

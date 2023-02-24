@@ -1,6 +1,13 @@
-class Poision extends StaticObjects {
+class Poison extends StaticObjects {
     width = 40;
     height = 50;
+
+    xCollidingFactor = 0.2;    // offset for collision detection
+    yCollidingFactor = 0.4;
+    widthCollidingFactor = 0.6;
+    heightCollidingFactor = 0.5;
+
+    collectPoisonAudio = new Audio('./audio/get-item-4.mp3');
 
     IMAGES_ANIMATION = [
         './img/4. Marcadores/Posión/Animada/1.png',
@@ -23,5 +30,12 @@ class Poision extends StaticObjects {
 
     setY() {
         this.y = 350 + Math.random() * 100;
+    }
+
+    collect() {
+        this.setX();
+        world.sharkie.poison += 1;
+        console.log('poison', world.sharkie.poison);
+        this.collectPoisonAudio.play();
     }
 }

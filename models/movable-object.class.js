@@ -48,7 +48,7 @@ class MovableObject {
       this.changeY(speed);
    }
 
-   animate(IMAGES, t) {
+   animate(IMAGES) {
 
       let i = this.currentImg % IMAGES.length;
       let path = IMAGES[i];
@@ -95,8 +95,8 @@ class MovableObject {
    //       this.y < mo.y + mo.height;
    // }
 
-   hit() {
-      this.energy -= 20;
+   hit(damage) {
+      this.energy -= damage;
       console.log('Energy', this.energy);
    }
 
