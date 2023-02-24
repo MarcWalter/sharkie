@@ -5,6 +5,11 @@ class EndBoss extends MovableObject {
     height = 300;
     width = 300;
 
+    xCollidingFactor = 0.06;    // offset for collision detection
+    yCollidingFactor = 0.5;
+    widthCollidingFactor = 0.8;
+    heightCollidingFactor = 0.3;
+
     IMAGES_ANIMATION = [
         `img/2.Enemy/3 Final Enemy/2.floating/1.png`,
         `img/2.Enemy/3 Final Enemy/2.floating/2.png`,
@@ -33,4 +38,5 @@ class EndBoss extends MovableObject {
             this.animate(IMAGES);
         }, t);
     }
+
 }

@@ -14,6 +14,11 @@ class PufferFish extends Enemy {
 
     speed = 0.5 + Math.random() * 1.5;
 
+    xCollidingFactor = 0.05;    // offset for collision detection
+    yCollidingFactor = 0.01;
+    widthCollidingFactor = 0.85;
+    heightCollidingFactor = 0.85;
+
     constructor() {
         super().loadImage('./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png')
         this.loadImages(this.IMAGES_ANIMATION);

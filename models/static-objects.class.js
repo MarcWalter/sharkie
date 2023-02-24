@@ -7,6 +7,11 @@ class StaticObjects {
     currentImg = 0;
     otherDirection = false;
 
+    xCollidingFactor = 0.01;    // offset for collision detection
+    yCollidingFactor = 0.01;
+    widthCollidingFactor = 1;
+    heightCollidingFactor = 1;
+
     constructor() {
         this.setX();
         this.respornIfFarAway();

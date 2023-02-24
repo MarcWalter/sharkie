@@ -48,10 +48,12 @@ class World {
 
         this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
         this.drawFrame(object);
+        // this.setCollidingPosition(object); // use instead of function below if check collisionwith frame
 
         if (object.otherDirection) {
             this.flipImageBack(object);
         }
+        this.setCollidingPosition(object); 
     }
 
     addObjectsToMap(objects) {
@@ -85,9 +87,21 @@ class World {
             this.ctx.beginPath();
             this.ctx.lineWidth = '2';
             this.ctx.strokeStyle = 'blue';
-            this.ctx.rect(object.x, object.y, object.width, object.height);
+            this.ctx.rect(object.xColliding, object.yColliding, object.widthColliding, object.heightColliding);
             this.ctx.stroke();
         }
+    }
+
+    setCollidingPosition(object) {
+        // object.xColliding = object.x;    // offset for collision detection
+        // object.yColliding = object.y ;
+        // object.widthColliding = object.width;
+        // object.heightColliding = object.height;
+  
+        object.xColliding = object.x + object.width * object.xCollidingFactor;    // offset for collision detection
+        object.yColliding = object.y + object.height * object.yCollidingFactor;
+        object.widthColliding = object.width * object.widthCollidingFactor;
+        object.heightColliding = object.height * object.heightCollidingFactor;
     }
 
     checkCollisions() {
@@ -97,6 +111,18 @@ class World {
                     this.sharkie.hit();
                 }
             });
+            this.level.staticObjects.forEach((object) => {
+                if (this.sharkie.isColliding(object)) {
+                    this.collisionWithStaticObject(object);
+                }
+            });
         }, 200);
     }
+
+    collisionWithStaticObject(object) {
+        if(object instanceof Coin) {
+            console.log('coin collision');
+        }
+    }
+    
 }

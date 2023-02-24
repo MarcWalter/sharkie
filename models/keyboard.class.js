@@ -12,7 +12,7 @@ class Keyboard {
 
     constructor() {
         window.addEventListener("keydown", (e) => {
-            // console.log(e);
+            console.log(e);
             if (e.keyCode == 87) {
                 this.W = true;
             }
@@ -45,7 +45,7 @@ class Keyboard {
             }
         });
         window.addEventListener("keyup", (e) => {
-            // console.log(e);
+            console.log(e);
             if (e.keyCode == 87) {
                 this.W = false;
             }
