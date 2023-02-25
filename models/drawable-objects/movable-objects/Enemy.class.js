@@ -49,4 +49,5 @@ class Enemy extends MovableObject {
         }, 300);
     }
 
+    
 }

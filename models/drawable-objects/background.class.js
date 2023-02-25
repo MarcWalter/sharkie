@@ -1,4 +1,4 @@
-class Background {
+class Background extends DrawableObject {
     x = 0;
     y = 0;
     width = 720 * 2;
@@ -7,16 +7,12 @@ class Background {
 
 
     constructor(xStart) {
+        super();
         this.setX();
         this.xStart = xStart;
     }
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-     }
-
-    setX() {
+     setX() {
         setInterval(() => {
             this.x = this.xStart + backgroundPosition * this.width;
         }, 1000);

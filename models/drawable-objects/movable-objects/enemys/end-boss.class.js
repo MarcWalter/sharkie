@@ -4,6 +4,7 @@ class EndBoss extends MovableObject {
     y = 50;
     height = 300;
     width = 300;
+    lastHit = 0;
 
     xCollidingFactor = 0.06;    // offset for collision detection
     yCollidingFactor = 0.5;
@@ -39,4 +40,16 @@ class EndBoss extends MovableObject {
         }, t);
     }
 
+    hitSharkie() {
+        if ((new Date().getTime() - this.lastHit) >= 3000 || this.lastHit == 0) {
+            world.sharkie.hit(50);
+            this.hitJellyFishAudio.play();
+            world.sharkie.hurtAnimation(this);
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    hitBySharkie() {
+        this.hitSharkie();
+    }
 }

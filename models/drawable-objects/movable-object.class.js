@@ -1,12 +1,8 @@
-class MovableObject {
+class MovableObject extends DrawableObject {
    x = 150;
    y = 150;
-   img;
    height = 150;
    width = 150;
-   imgCache = {};
-   currentImg = 0;
-   otherDirection = false;
    energy = 100;
 
    xColliding = 0;
@@ -16,76 +12,52 @@ class MovableObject {
 
    // sharkieIntervall;
 
-   loadImage(path) {
-      this.img = new Image();
-      this.img.src = path;
-   }
-
-   loadImages(arr) {
-      arr.forEach((path) => {
-         let img = new Image();
-         img.src = path;
-         this.imgCache[path] = img;
-      });
+   constructor() {
+      super();
    }
 
    moveRight(speed) {
       setInterval(() => {
-         this.x += speed;
+         if (!this.isDead()) {
+            this.x += speed;
+         }
       }, 1000 / 60)
    }
 
    moveLeft(speed) {
       setInterval(() => {
-         this.x -= speed;
+         if (!this.isDead()) {
+            this.x -= speed; 
+         }
       }, 1000 / 60)
    }
 
    moveY(speed) {
       setInterval(() => {
-         this.y -= this.yMove;
+         if (!this.isDead()) {
+            this.y -= this.yMove;
+         }
       }, 1000 / 60)
       this.changeY(speed);
    }
 
-   animate(IMAGES) {
 
-      let i = this.currentImg % IMAGES.length;
-      let path = IMAGES[i];
-      this.img = this.imgCache[path];
-
-      this.currentImg++;
-
-   }
-
-   animateSingleTurn(IMAGES, t) {
-      clearInterval(this.sharkieIntervall);
-      this.currentImg = 0;
-
-      let currentIntervall = setInterval(() => {
-         this.movable = false;
-
-         let i = this.currentImg % IMAGES.length;
-         let path = IMAGES[i];
-         this.img = this.imgCache[path];
-         this.currentImg++;
-
-         if (this.currentImg == IMAGES.length) { //start animateSharkie() if animateSingleTurn() showed animation one time
-            clearInterval(currentIntervall);
-            this.restartAnimation();
-         }
-      }, t);
-   }
 
    isColliding(obj) {
       return (this.xColliding + this.widthColliding) >= obj.xColliding && this.xColliding <= (obj.xColliding + obj.widthColliding) &&
          (this.yColliding + this.heightColliding) >= obj.yColliding &&
          (this.yColliding) <= (obj.yColliding + obj.heightColliding);
-      // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+      //&& obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
       // return (this.x * xCollidingFactor + this.width * widthCollidingFactor) >= (obj.x * xCollidingFactor) && (this.x * xCollidingFactor) <= (obj.x * xCollidingFactor + obj.width * widthCollidingFactor) &&
       // (this.y * yCollidingFactor + this.heightColliding * heightCollidingFactor) >= (obj.y * yCollidingFactor) &&
       // (this.y * yCollidingFactor) <= (obj.y * yCollidingFactor + obj.heightColliding * heightCollidingFactor);
+   }
+
+   isNear(obj) {
+      return (this.xColliding + this.widthColliding) >= (obj.xColliding - 40) && this.xColliding <= (obj.xColliding + obj.widthColliding + 40) &&
+         (this.yColliding + this.heightColliding) >= obj.yColliding &&
+         (this.yColliding) <= (obj.yColliding + obj.heightColliding);
    }
 
    // isColliding(mo) {
@@ -105,8 +77,6 @@ class MovableObject {
    }
 
    restartAnimation() {
-      if (!this.isDead()) {
-         this.animateSharkie();
-      }
+      this.animateSharkie();
    }
 }

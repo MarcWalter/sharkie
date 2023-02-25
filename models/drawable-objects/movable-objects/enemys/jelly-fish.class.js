@@ -32,13 +32,16 @@ class JellyFish extends Enemy {
     }
 
     hitSharkie() {
-        //  world.sharkie.hit(20);
-        this.transformation = true;
 
         if ((new Date().getTime() - this.lastHit) >= 3000 || this.lastHit == 0) {
-            // this.hitPufferFishAudio.play();
+            world.sharkie.hit(20);
+            // this.hitJellyFishAudio.play();
             world.sharkie.hurtAnimation(this);
             this.lastHit = new Date().getTime();
         }
+    }
+
+    hitBySharkie() {
+        this.hitSharkie();
     }
 }

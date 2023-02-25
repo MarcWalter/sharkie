@@ -22,9 +22,10 @@ class Poison extends StaticObjects {
 
 
     constructor() {
-        super().loadImage('./img/4. Marcadores/Posión/Animada/1.png');
+        super();
+        this.loadImage('./img/4. Marcadores/Posión/Animada/1.png');
         this.loadImages(this.IMAGES_ANIMATION);
-        this.animate(100);
+        this.animateStaticObject(100);
         this.setY();
     }
 
@@ -33,9 +34,11 @@ class Poison extends StaticObjects {
     }
 
     collect() {
-        this.setX();
-        world.sharkie.poison += 1;
-        console.log('poison', world.sharkie.poison);
-        this.collectPoisonAudio.play();
+        if (world.sharkie.poison < 5) {
+            this.setX();
+            world.sharkie.poison += 1;
+            console.log('poison', world.sharkie.poison);
+            this.collectPoisonAudio.play();
+        }
     }
 }

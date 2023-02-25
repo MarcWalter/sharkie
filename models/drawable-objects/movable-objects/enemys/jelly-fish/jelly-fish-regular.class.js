@@ -11,6 +11,8 @@ class JellyFishRegular extends JellyFish {
 
     IMAGE_PATH = `./img/2.Enemy/2 Jelly fish/Regular damage/${this.fishTypeArray[this.fishType]} 1.png`;
 
+    hitJellyFishAudio = new Audio('./audio/shock-1.mp3');
+
     constructor() {
         super();
         this.loadImage(this.IMAGE_PATH);

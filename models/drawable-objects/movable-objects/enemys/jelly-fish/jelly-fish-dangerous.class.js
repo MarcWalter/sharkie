@@ -13,6 +13,8 @@ class JellyFishDangerous extends JellyFish {
 
     IMAGE_PATH = `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`;
 
+    hitJellyFishAudio = new Audio('./audio/shock-2.mp3');
+
     constructor() {
         super();
         this.loadImage(this.IMAGE_PATH);

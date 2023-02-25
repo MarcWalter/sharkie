@@ -3,6 +3,8 @@ let world;
 let keyboard = new Keyboard();
 let backgroundPosition = 0;
 let xPositionSharky = 150;
+let yPositionSharky = 150;
+
 
 let music = new Audio('audio/music-1.mp3');
 let ocean1 = new Audio('audio/ocean-1.mp3');

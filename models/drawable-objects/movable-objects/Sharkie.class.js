@@ -62,7 +62,8 @@ class Sharkie extends MovableObject {
         './img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png',
         './img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
         './img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
-        './img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png'
+        './img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
+        'img/1.Sharkie/1.IDLE/1.png'
     ];
 
     IMAGES_POISONED_BUBBEL = [
@@ -142,6 +143,8 @@ class Sharkie extends MovableObject {
     xColliding = 999;
     yColliding = 999;
 
+    dead = false;
+
     constructor() {
         super();
 
@@ -182,12 +185,12 @@ class Sharkie extends MovableObject {
                 this.sharkieDeadAnimation();
             }
             else if (this.world.keyboard.SPACE) {
-                this.animateSingleTurn(this.IMAGES_FIN_SLAP, 50);
+                this.finSlap();
             }
             else if (this.world.keyboard.J) {
-                this.animateSingleTurn(this.IMAGES_POISONED_BUBBEL, 100);
+                this.animateSingleTurn(this.IMAGES_BUBBEL, 100);
             }
-            else if (this.world.keyboard.D == false && this.world.keyboard.A == false) {
+            else if (this.world.keyboard.D == false && this.world.keyboard.A == false % !this.isDead()) {
                 this.animate(this.IMAGES_ANIMATION)
             }
             else if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -236,42 +239,39 @@ class Sharkie extends MovableObject {
         }, 1000 / 60)
     }
 
-    isSwimming() {
-        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
-    }
-
-    isAttacking() {
-        return this.world.keyboard.SPACE && this.world.endboss.firstContactWithEndboss;
-    }
-
     sharkieDeadAnimation() {
-        this.animateSingleTurn(this.IMAGES_DEAD, 100);
-        setTimeout(() => {
-            setInterval(() => {
-                if (this.y > -90) {
-                    this.y -= 2;
-                }
-            }, 200 / 60)
-        }, 500);
+        if (this.dead == false) {
+            clearInterval(this.sharkieIntervall);
+            this.animateSingleTurn(this.IMAGES_DEAD, 100);
+            setTimeout(() => {
+                setInterval(() => {
+                    if (this.y > -90) {
+                        this.y -= 2;
+                    }
+                }, 200 / 60)
+            }, 500);
+        }
+        this.dead = true;
     }
 
     updateSharkyPosition() {
         backgroundPosition = Math.round(this.x / (720 * 2)); //move background position
         xPositionSharky = this.x;
+        yPositionSharky = this.y;
     }
 
     hurtAnimation(enemy) {
-       if ((new Date().getTime() - this.lastSharkieHit) >= 3000 || this.lastSharkieHit == 0) {
-        this.hurtAnimationByEnemyType(enemy); 
-        this.lastSharkieHit = new Date().getTime();
-       }
+        if ((new Date().getTime() - this.lastSharkieHit) >= 3000 || this.lastSharkieHit == 0) {
+            this.hurtAnimationByEnemyType(enemy);
+            this.lastSharkieHit = new Date().getTime();
+        }
     }
 
     hurtAnimationByEnemyType(enemy) {
         let i = 1;
         clearInterval(this.sharkieIntervall);
         this.movable = false;
-        let currentIntervall = setInterval(() => {
+        let hurtAnimationIntervall = setInterval(() => {
             if (enemy instanceof PufferFish && i <= 10) {
                 this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${i}.png`];
                 i++
@@ -282,11 +282,28 @@ class Sharkie extends MovableObject {
                 i++
             }
 
-            if ((enemy instanceof PufferFish && i >= 11) || ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && i >= 7)) {
-                clearInterval(currentIntervall);
+            else if ((enemy instanceof PufferFish && i >= 11) || ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && i >= 7)) {
+                clearInterval(hurtAnimationIntervall);
                 this.restartAnimation();
                 this.movable = true;
             }
         }, 200);
+    }
+
+    finSlap() {
+        this.animateSingleTurn(this.IMAGES_FIN_SLAP, 50);
+        this.checkNearPufferFish();
+        this.energy -= 5;
+    }
+
+    checkNearPufferFish() {
+        world.level.enemies.forEach(obj => {
+            if (this.isNear(obj)) {
+                console.log("Enemy hit");
+                obj.hitBySharkie();
+            }
+
+        });
+
     }
 }

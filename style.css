@@ -1,8 +1,11 @@
+@font-face { font-family: LuckiestGuy-Regular; src: url('./img/5.Font/Luckiest_Guy/LuckiestGuy-Regular.ttf'); } 
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: LuckiestGuy-Regular;
 }
 
 canvas {
