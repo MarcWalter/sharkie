@@ -93,8 +93,22 @@ class Sharkie extends MovableObject {
         './img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
         './img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         './img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
-        './img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
+        './img/1.Sharkie/5.Hurt/1.Poisoned/5.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/6.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/7.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/8.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/9.png',
+        './img/1.Sharkie/5.Hurt/1.Poisoned/10.png'
     ]
+
+    IMAGES_ELECTRO_SHOCK = [
+        './img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
+        './img/1.Sharkie/5.Hurt/2.Electric shock/2.png',
+        './img/1.Sharkie/5.Hurt/2.Electric shock/3.png',
+        './img/1.Sharkie/5.Hurt/2.Electric shock/4.png',
+        './img/1.Sharkie/5.Hurt/2.Electric shock/5.png',
+        './img/1.Sharkie/5.Hurt/2.Electric shock/6.png',
+    ];
 
     IMAGES_DEAD = [
         'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
@@ -118,11 +132,12 @@ class Sharkie extends MovableObject {
     x_start = 150;
     sharkieIntervall;
     movable = true;
+    lastSharkieHit = 0;
 
-    xCollidingFactor = 0.2;    // offset for collision detection
-    yCollidingFactor = 0.5;
-    widthCollidingFactor = 0.6;
-    heightCollidingFactor = 0.25;
+    xCollidingFactor = 0.25;    // offset for collision detection
+    yCollidingFactor = 0.53;
+    widthCollidingFactor = 0.55;
+    heightCollidingFactor = 0.2;
 
     xColliding = 999;
     yColliding = 999;
@@ -157,6 +172,7 @@ class Sharkie extends MovableObject {
         this.loadImages(this.IMAGES_BUBBEL);
         this.loadImages(this.IMAGES_POISONED_BUBBEL);
         this.loadImages(this.IMAGES_POISONED);
+        this.loadImages(this.IMAGES_ELECTRO_SHOCK);
         this.loadImages(this.IMAGES_DEAD);
     }
 
@@ -245,22 +261,31 @@ class Sharkie extends MovableObject {
     }
 
     hurtAnimation(enemy) {
+       if ((new Date().getTime() - this.lastSharkieHit) >= 3000 || this.lastSharkieHit == 0) {
+        this.hurtAnimationByEnemyType(enemy); 
+        this.lastSharkieHit = new Date().getTime();
+       }
+    }
+
+    hurtAnimationByEnemyType(enemy) {
         let i = 1;
         clearInterval(this.sharkieIntervall);
+        this.movable = false;
         let currentIntervall = setInterval(() => {
-            if (enemy instanceof PufferFish && i <= 5) {
+            if (enemy instanceof PufferFish && i <= 10) {
                 this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${i}.png`];
                 i++
             }
 
-            // if (enemy instanceof JellyFishRegular && i <= 3) {
-            //     this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${i}.png`];
-            //     i++
-            // }
+            if ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && i <= 6) {
+                this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/2.Electric shock/${i}.png`];
+                i++
+            }
 
-            if ((enemy instanceof PufferFish && i == 6) || (enemy instanceof PufferFish && i == 4)) {
-                this.restartAnimation();
+            if ((enemy instanceof PufferFish && i >= 11) || ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && i >= 7)) {
                 clearInterval(currentIntervall);
+                this.restartAnimation();
+                this.movable = true;
             }
         }, 200);
     }

@@ -1,10 +1,8 @@
-class JellyFishDangerous extends Enemy {
+class JellyFishDangerous extends JellyFish {
     height = 70;
     width = 70;
-    yMove = 0;
-    fishType = Math.round(Math.random() * 1);
+
     fishTypeArray = ['Green', 'Pink'];
-    animationSpeed = 150 + Math.random() * 100;
 
     IMAGES_ANIMATION = [
         `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`,
@@ -13,24 +11,13 @@ class JellyFishDangerous extends Enemy {
         `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 4.png`       
     ];
 
-    speed = + Math.random() * 0.5;
+    IMAGE_PATH = `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`;
 
     constructor() {
-        super().loadImage(`./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`);
+        super();
+        this.loadImage(this.IMAGE_PATH);
         this.loadImages(this.IMAGES_ANIMATION);
-        this.swim();
         this.animateJellyFish(this.IMAGES_ANIMATION, this.animationSpeed);
     }
-
-    animateJellyFish(IMAGES, t) {
-        setInterval(() => {
-            this.animate(IMAGES);
-        }, t);
-    }
-
-    swim() {
-        this.moveLeft(this.speed);
-        this.moveY(0.01);
-    }
-
+   
 }

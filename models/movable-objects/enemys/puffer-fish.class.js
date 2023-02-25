@@ -35,9 +35,9 @@ class PufferFish extends Enemy {
     speed = 0.5 + Math.random() * 1.5;
 
     xCollidingFactor = 0.05;    // offset for collision detection
-    yCollidingFactor = 0.01;
-    widthCollidingFactor = 0.85;
-    heightCollidingFactor = 0.85;
+    yCollidingFactor = 0.1;
+    widthCollidingFactor = 0.75;
+    heightCollidingFactor = 0.60;
 
     constructor() {
         super().loadImage('./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png')
@@ -87,9 +87,15 @@ class PufferFish extends Enemy {
 
     hitSharkie() {
         //  world.sharkie.hit(20);
-         this.transformation = true;
-         this.resetTrasformation();
-         this.hitPufferFishAudio.play();
+        this.transformation = true;
+        this.resetTrasformation();
+
+        if ((new Date().getTime() - this.lastHit) >= 3000 || this.lastHit == 0) {
+            this.hitPufferFishAudio.play();
+            world.sharkie.hurtAnimation(this);
+            this.lastHit = new Date().getTime();
+        }
     }
+
 
 }

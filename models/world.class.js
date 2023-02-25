@@ -111,13 +111,12 @@ class World {
     checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if (this.sharkie.isColliding(enemy) && enemy instanceof PufferFish) {
+                if (this.sharkie.isColliding(enemy) && !this.sharkie.isDead()) {
                     enemy.hitSharkie();
-                    this.sharkie.hurtAnimation(enemy);
                 }
             });
             this.level.staticObjects.forEach((object) => {
-                if (this.sharkie.isColliding(object) && (object instanceof Coin || object instanceof Poison)) {
+                if (this.sharkie.isColliding(object) && (object instanceof Coin || object instanceof Poison) && !this.sharkie.isDead()) {
                     object.collect();
                 }
             });

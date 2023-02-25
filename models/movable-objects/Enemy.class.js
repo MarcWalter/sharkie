@@ -1,5 +1,5 @@
 class Enemy extends MovableObject {
-
+    lastHit = 0;
 
     constructor() {
         super();
@@ -48,4 +48,5 @@ class Enemy extends MovableObject {
             }
         }, 300);
     }
+
 }
