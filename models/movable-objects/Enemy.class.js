@@ -4,7 +4,7 @@ class Enemy extends MovableObject {
     constructor() {
         super();
         this.setX();
-        this.respornIfFarAway();
+        // this.respornIfFarAway();
     }
 
     changeY(speed) {
