@@ -1,3 +1,0 @@
-class Poision extends StaticObjects {
-    
-}
