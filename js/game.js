@@ -4,6 +4,9 @@ let keyboard = new Keyboard();
 let backgroundPosition = 0;
 let xPositionSharky = 150;
 let yPositionSharky = 150;
+let sharkieIntervalls = [];
+let endBossIntervalls = [];
+let intervalIds = [];
 
 
 let music = new Audio('audio/music-1.mp3');
@@ -61,3 +64,18 @@ function playSound() {
 window.addEventListener('onkeydown', (event) => {
     console.log(event);
 })
+
+function stoppableSarkieInterval(fn, intervall) {
+    let id = setInterval(fn, intervall);
+    sharkieIntervalls.push(id);
+}
+
+function stoppableEndBossInterval(fn, intervall) {
+    let id = setInterval(fn, intervall);
+    endBossIntervalls.push(id);
+}
+
+function stoppableInterval(fn, intervall) {
+    let id = setInterval(fn, intervall);
+    intervalIds.push(id);
+}

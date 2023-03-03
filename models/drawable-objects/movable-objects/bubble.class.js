@@ -72,7 +72,7 @@ class Bubble extends MovableObject {
         setInterval(() => {
             world.level.enemies.forEach(enemy => {
                 if (this.isColliding(enemy)) {
-                    this.y = -100;
+                        this.y = -100;
                 }
             });
 

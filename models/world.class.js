@@ -67,7 +67,7 @@ class World {
             console.log(error);
             console.log(object);
         }
-        this.drawFrame(object);
+        // this.drawFrame(object);
         // this.setCollidingPosition(object); // use instead of function below if check collisionwith frame
 
         if (object.otherDirection) {
@@ -139,7 +139,7 @@ class World {
         });
         this.bubbles.forEach(bubble => {
             this.level.enemies.forEach(enemy => {
-                if (enemy instanceof JellyFish && enemy.isColliding(bubble)) {
+                if ((enemy instanceof JellyFish || enemy instanceof EndBoss) && enemy.isColliding(bubble)) {
                     enemy.hitByBubble();
                 }
             });
