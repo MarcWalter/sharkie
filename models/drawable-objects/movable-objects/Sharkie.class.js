@@ -126,6 +126,8 @@ class Sharkie extends MovableObject {
         'img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png'
     ];
 
+    finSlapAudio = new Audio('./audio/hit-1.mp3');
+
     coins = 0;
     poison = 0;
 
@@ -186,6 +188,9 @@ class Sharkie extends MovableObject {
             }
             else if (this.world.keyboard.SPACE) {
                 this.finSlap();
+            }
+            else if (this.world.keyboard.J && this.poison >= 5) {
+                this.animateSingleTurn(this.IMAGES_POISONED_BUBBEL, 100);
             }
             else if (this.world.keyboard.J) {
                 this.animateSingleTurn(this.IMAGES_BUBBEL, 100);
@@ -301,8 +306,8 @@ class Sharkie extends MovableObject {
             if (this.isNear(obj)) {
                 console.log("Enemy hit");
                 obj.hitBySharkie();
+                this.finSlapAudio.play();
             }
-
         });
 
     }

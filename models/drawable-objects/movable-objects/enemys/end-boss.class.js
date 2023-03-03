@@ -11,6 +11,19 @@ class EndBoss extends MovableObject {
     widthCollidingFactor = 0.8;
     heightCollidingFactor = 0.3;
 
+    START_ANIMATION = [
+        './img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/3.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/4.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/5.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/6.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/7.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/8.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
+        './img/2.Enemy/3 Final Enemy/1.Introduce/10.png'
+    ];
+
     IMAGES_ANIMATION = [
         `img/2.Enemy/3 Final Enemy/2.floating/1.png`,
         `img/2.Enemy/3 Final Enemy/2.floating/2.png`,
@@ -30,14 +43,23 @@ class EndBoss extends MovableObject {
 
     constructor() {
         super().loadImage('./img/2.Enemy/3 Final Enemy/2.floating/1.png')
+        this.loadImages(this.START_ANIMATION);
         this.loadImages(this.IMAGES_ANIMATION);
-        this.animateEndBoss(this.IMAGES_ANIMATION, 200);
+        // this.animateEndBoss();
     }
 
-    animateEndBoss(IMAGES, t) {
+    animateEndBoss() {
         setInterval(() => {
-            this.animate(IMAGES);
-        }, t);
+            if (first) {
+                
+            }
+
+
+            else {
+                this.animate(this.IMAGES_ANIMATION);
+
+            }
+        }, 200);
     }
 
     hitSharkie() {

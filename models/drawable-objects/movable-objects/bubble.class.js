@@ -18,19 +18,24 @@ class Bubble extends MovableObject {
     constructor() {
         super();
         this.loadImage(this.IMAGES[0]);
+        this.loadImages(this.IMAGES);
+        this.chooseBubbleSort();
         this.height = this.size;
         this.width = this.size;
         this.setParameter();
         this.applyPhysics();
         world.sharkie.energy -= 5;
+        this.bubbleDestroy();
     }
 
     chooseBubbleSort() {
-        if (world.sharkie.poison >= 5) {
-            this.loadImage(this.IMAGES[1]);
-        } else {
-            this.loadImage(this.IMAGES[0]);
-        }
+        setInterval(() => {
+            if (world.sharkie.poison >= 5) {
+                this.img = this.imgCache['img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png'];
+            } else {
+                this.img = this.imgCache['img/1.Sharkie/4.Attack/Bubble trap/Bubble.png'];
+            }
+        }, 50);
     }
 
     setParameter() {
@@ -43,7 +48,7 @@ class Bubble extends MovableObject {
             this.y = yPositionSharky + 70;
             this.speedX = this.speedX * (-1);
         }
-       
+
     }
 
     applyPhysics() {
@@ -55,11 +60,22 @@ class Bubble extends MovableObject {
                 this.x += this.speedX;
             }
             if (this.speedX > 0) { //apply friction
-                this.speedX -= 0.01;
+                this.speedX -= 0.02;
             }
             if (this.speedX < 0) { //apply friction
-                this.speedX += 0.01;
+                this.speedX += 0.02;
             }
         }, 10);
+    }
+
+    bubbleDestroy() {
+        setInterval(() => {
+            world.level.enemies.forEach(enemy => {
+                if (this.isColliding(enemy)) {
+                    this.y = -100;
+                }
+            });
+
+        }, 100);
     }
 }

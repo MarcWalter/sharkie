@@ -30,7 +30,7 @@ class Poison extends StaticObjects {
     }
 
     setY() {
-        this.y = 350 + Math.random() * 100;
+        this.y = 350 + Math.random() * 90;
     }
 
     collect() {
