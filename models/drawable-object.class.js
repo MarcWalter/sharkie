@@ -8,6 +8,11 @@ class DrawableObject {
     height = 150;
     width = 150;
 
+    xCollidingFactor = 0.01;    // offset for collision detection
+    yCollidingFactor = 0.01;
+    widthCollidingFactor = 1;
+    heightCollidingFactor = 1;
+
     constructor() {
      
     }

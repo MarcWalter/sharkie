@@ -11,6 +11,13 @@ class JellyFishDangerous extends JellyFish {
         `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 4.png`       
     ];
 
+    IMAGES_DEAD = [
+        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/1.png`,
+        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/2.png`,
+        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/3.png`,
+        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/4.png`
+    ];
+
     IMAGE_PATH = `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`;
 
     hitJellyFishAudio = new Audio('./audio/shock-2.mp3');
@@ -19,7 +26,8 @@ class JellyFishDangerous extends JellyFish {
         super();
         this.loadImage(this.IMAGE_PATH);
         this.loadImages(this.IMAGES_ANIMATION);
-        this.animateJellyFish(this.IMAGES_ANIMATION, this.animationSpeed);
+        this.loadImages(this.IMAGES_DEAD);
+        this.animateJellyFish(this.animationSpeed);
     }
    
 }

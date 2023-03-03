@@ -13,6 +13,7 @@ class World {
     // statusCoins = new StatusCoins();
     // statusPoison = new StatusPoison();
     bubbles = [];
+    lastBubble = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -66,7 +67,7 @@ class World {
             console.log(error);
             console.log(object);
         }
-        // this.drawFrame(object);
+        this.drawFrame(object);
         // this.setCollidingPosition(object); // use instead of function below if check collisionwith frame
 
         if (object.otherDirection) {
@@ -112,11 +113,6 @@ class World {
     }
 
     setCollidingPosition(object) {
-        // object.xColliding = object.x;    // offset for collision detection
-        // object.yColliding = object.y ;
-        // object.widthColliding = object.width;
-        // object.heightColliding = object.height;
-
         object.xColliding = object.x + object.width * object.xCollidingFactor;    // offset for collision detection
         object.yColliding = object.y + object.height * object.yCollidingFactor;
         object.widthColliding = object.width * object.widthCollidingFactor;
@@ -127,7 +123,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.createBubble();
-        }, 100);
+        }, 50);
     }
 
     checkCollisions() {
@@ -141,10 +137,20 @@ class World {
                 object.collect();
             }
         });
+        this.bubbles.forEach(bubble => {
+            this.level.enemies.forEach(enemy => {
+                if (enemy instanceof JellyFish && enemy.isColliding(bubble)) {
+                    enemy.hitByBubble();
+                }
+            });
+
+        });
     }
 
     createBubble() {
-        if (this.keyboard.J) {
+        if (this.keyboard.J && (this.lastBubble == 0 || ((new Date().getTime() - this.lastBubble) > 1000))) {
+            this.lastBubble = new Date().getTime();
+            console.log(this.lastBubble);
             setTimeout(() => {
                 let bubble = new Bubble();
                 this.bubbles.push(bubble)

@@ -204,7 +204,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieRight(speed) {
         setInterval(() => {
-            if ((this.world.keyboard.D || this.world.keyboard.RIGHT) && this.movable) {
+            if ((this.world.keyboard.D || this.world.keyboard.RIGHT) && this.movable && !this.isDead()) {
                 this.x += speed;
                 this.otherDirection = false;
                 this.world.camera_x = this.x_start - this.x;
@@ -214,7 +214,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieLeft(speed) {
         setInterval(() => {
-            if ((this.world.keyboard.A || this.world.keyboard.LEFT) && this.movable) {
+            if ((this.world.keyboard.A || this.world.keyboard.LEFT) && this.movable && !this.isDead()) {
                 this.x -= speed;
                 this.otherDirection = true;
                 this.world.camera_x = this.x_start - this.x;
@@ -224,7 +224,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieUp(speed) {
         setInterval(() => {
-            if (((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100 && this.movable)) {
+            if (((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100 && this.movable && !this.isDead())) {
                 this.y -= speed;
             }
         }, 1000 / 60)
@@ -233,7 +233,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieDown(speed) {
         setInterval(() => {
-            if ((this.world.keyboard.S || this.world.keyboard.DOWN) && this.y < 355 && this.movable) {
+            if ((this.world.keyboard.S || this.world.keyboard.DOWN) && this.y < 355 && this.movable && !this.isDead()) {
                 this.y += speed;
             }
         }, 1000 / 60)
