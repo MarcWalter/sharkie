@@ -123,6 +123,7 @@ class World {
         stoppableInterval(() => {
             this.checkCollisions();
             this.createBubble();
+            this.checkGameEnd();
         }, 50);
     }
 
@@ -156,5 +157,25 @@ class World {
                 this.bubbles.push(bubble)
             }, 800);
         }
+    }
+
+    checkGameEnd() {
+       
+            if (this.sharkie.energy <= 0)  {
+                setTimeout(() => {
+                    stopGame();
+                    document.getElementById('game-over-card').classList.remove('d-none');
+                    document.getElementById('game-over-btn').classList.remove('d-none');
+                }, 3000);
+            }
+            if (this.sharkie.energy > 0 && this.level.enemies[0].energy <= 0 && this.sharkie.coins >= 5) {
+                setTimeout(() => {
+                    stopGame();
+                    document.getElementById('victory-card').classList.remove('d-none');
+                    document.getElementById('victory-btn').classList.remove('d-none');
+                }, 3000);
+            }
+        
+        
     }
 }

@@ -93,7 +93,7 @@ class EndBoss extends MovableObject {
             this.setXPositionEndBoss();
             this.setYPositionEndBoss();
             this.animateEndBoss();
-        }, 20000);
+        }, 40000);
     }
 
     animateEndBoss() {

@@ -28,9 +28,25 @@ function startGame() {
     canvas = document.getElementById('canvas');
     initLevel1();
     world = new World(canvas, keyboard);
+    removeCards();
+}
+
+function removeCards() {
+    document.getElementById('victory-btn').classList.add('d-none');
+    document.getElementById('game-over-btn').classList.add('d-none');
+
     setTimeout(() => {
         document.getElementById('intro').classList.add('d-none');
+        document.getElementById('victory-card').classList.add('d-none');
+        document.getElementById('game-over-card').classList.add('d-none');
+
     }, 3000);
+}
+
+function stopGame() {
+    stopIntervals(sharkieIntervalls);
+    stopIntervals(endBossIntervalls);
+    stopIntervals(intervalIds);
 }
 
 function initSound() {
@@ -118,10 +134,10 @@ function fullscreen() {
 
 function openFullscreen(elem) {
     if (elem.requestFullscreen) {
-      elem.requestFullscreen();
+        elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) { /* Safari */
-      elem.webkitRequestFullscreen();
+        elem.webkitRequestFullscreen();
     } else if (elem.msRequestFullscreen) { /* IE11 */
-      elem.msRequestFullscreen();
+        elem.msRequestFullscreen();
     }
-  }
+}

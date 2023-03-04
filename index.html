@@ -56,7 +56,7 @@
             </button>
         </div>
 
-        <div id="intro" class="intro d-none">
+        <div id="intro" class="intro">
             <div class="introcard">
                 <p>Baby shark is busy collecting <b>five coins</b>, like every morning. Every morning since Sharkie can remember.
                     Probably three.</p>
@@ -65,16 +65,16 @@
                     But just in case, you can escape with the <b>W-A-S-D</b> keys or defeat the evil with your fin punch (<b>space</b>) or an air bubble (<b>J</b>). You need five poison bottles to defeat a killer whale.
                     You don't need luck. You are strong, the terror of the seas, almost ten days old.
                 </p>
-                <button onclick="startGame()">Try without luck</button>
+                <button id="intro-btn" onclick="startGame()">Try without luck</button>
             </div>
         </div>
-        <div class="victory-card d-none">
+        <div id="victory-card" class="victory-card d-none">
             <img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
-            <button>Try next morning</button>
+            <button id="victory-btn" onclick="startGame()">Try next morning</button>
         </div>
-        <div class="game-over-card">
+        <div id="game-over-card" class="game-over-card d-none">
             <img src="./img/6.Botones/Tittles/Game Over/Recurso 13.png" alt="">
-            <button>Try it with another disobedient sibling</button>
+            <button id="game-over-btn" onclick="startGame()">Try it with another disobedient sibling</button>
         </div>
     </div>
 

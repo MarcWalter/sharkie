@@ -144,6 +144,11 @@ button:hover, button:active {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
+}
+
+.introcard button {
+    width: 200px;
 }
 
 .victory-card {
@@ -179,11 +184,19 @@ button:hover, button:active {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .game-over-card img {
     width: 50%;
     align-self: center;
+}
+
+.game-over-card button {
+    margin: 0;
+    width: 200px;
+    position: absolute;
+    bottom: 30px;
 }
 
 /* Smartphones -------------- */
