@@ -77,5 +77,54 @@ class Keyboard {
                 this.SPACE = false;
             }
         });
+
+        document.getElementById('up-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.UP = true;
+        });
+        document.getElementById('up-btn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.UP = false;
+        });
+        document.getElementById('down-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.DOWN = true;
+        });
+        document.getElementById('down-btn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.DOWN = false;
+        });
+        document.getElementById('left-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.LEFT = true;
+        });
+        document.getElementById('left-btn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.LEFT = false;
+        });
+        document.getElementById('right-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.RIGHT = true;
+        });
+        document.getElementById('right-btn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.RIGHT = false;
+        });
+        document.getElementById('bubble-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.J = true;
+        });
+        document.getElementById('bubble-btn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.J = false;
+        });
+        document.getElementById('fin-slap-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.SPACE = true;
+        });
+        document.getElementById('fin-slap-btn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.SPACE = false;
+        });
     }
 }

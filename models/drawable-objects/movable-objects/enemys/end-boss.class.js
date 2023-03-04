@@ -14,6 +14,8 @@ class EndBoss extends MovableObject {
     animationCounter = 0;
     lastAttack = 0;
     hitByPoisendBubble = false;
+    hurtImg = 0;
+    deadImg = 0;
 
     START_ANIMATION = [
         './img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
@@ -54,12 +56,30 @@ class EndBoss extends MovableObject {
         './img/2.Enemy/3 Final Enemy/Attack/6.png'
     ];
 
+    IMAGES_HURT = [
+        './img/2.Enemy/3 Final Enemy/Hurt/1.png',
+        './img/2.Enemy/3 Final Enemy/Hurt/2.png',
+        './img/2.Enemy/3 Final Enemy/Hurt/3.png',
+        './img/2.Enemy/3 Final Enemy/Hurt/4.png'
+    ];
+
+    IMAGES_DEATH = [
+        './img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png'
+    ];
+
     attackAudio = new Audio('./audio/monster-attack-1.mp3');
 
     constructor() {
         super().loadImage('./img/2.Enemy/3 Final Enemy/1.Introduce/1.png');
         this.loadImages(this.START_ANIMATION);
         this.loadImages(this.IMAGES_ANIMATION);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEATH);
         this.endBossAppears();
     }
 
@@ -77,12 +97,12 @@ class EndBoss extends MovableObject {
     }
 
     animateEndBoss() {
-        setInterval(() => {
+        stoppableEndBossInterval(() => {
             if (this.animationCounter < 10) {
                 this.img.src = this.START_ANIMATION[this.animationCounter];
             }
             else if (this.isDead()) {
-                console.log('EndBoss is dead');
+                this.endBossIsDead();
             }
             else if (this.hitByPoisendBubble) {
                 this.endBossGetHit();
@@ -109,16 +129,16 @@ class EndBoss extends MovableObject {
     }
 
     setXPositionEndBoss() {
-        setInterval(() => {
-            if (this.x >= xPositionSharky + 150) {
-                this.x -= 5;
+        stoppableInterval(() => {
+            if (this.x >= xPositionSharky + 150 && !this.isDead()) {
+                this.x -= 7;
             }
         }, 50);
     }
 
     setYPositionEndBoss() {
-        setInterval(() => {
-            if (this.y >= yPositionSharky - 100 && !world.sharkie.isDead()) {
+        stoppableInterval(() => {
+            if (this.y >= yPositionSharky - 100 && !world.sharkie.isDead() && !this.isDead()) {
                 if (this.x >= xPositionSharky + 200) {
                     this.y -= 4;
                 } else {
@@ -126,7 +146,7 @@ class EndBoss extends MovableObject {
                 }
             }
 
-            if (this.y <= yPositionSharky - 100 && !world.sharkie.isDead()) {
+            if (this.y <= yPositionSharky - 100 && !world.sharkie.isDead() && !this.isDead()) {
                 if (this.x >= xPositionSharky + 200) {
                     this.y += 4;
                 } else {
@@ -152,12 +172,28 @@ class EndBoss extends MovableObject {
     }
 
     endBossGetHit() {
-        if ((new Date().getTime() - this.lastHit > 3000) || this.lastHit == 0) {
-            this.hitByPoisendBubble = false;
-            this.energy -= 100;
+        if (this.hurtImg < 4) {
+            this.img.src = this.IMAGES_HURT[this.hurtImg];
+            this.hurtImg++;
         }
-
-
+        else {
+            this.hurtImg = 0;
+            this.energy -= 100;
+            this.hitByPoisendBubble = false;
+        }
     }
+
+    endBossIsDead() {
+        if (this.deadImg < 6) {
+            this.img.src = this.IMAGES_DEATH[this.deadImg];
+            this.deadImg++;
+        }
+        else {
+            if (this.y >= -80) {
+                this.y -= 10;
+            }
+        }
+    }
+    
 
 }

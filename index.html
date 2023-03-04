@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharkie</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon-1.png">
-    
+
 
     <link rel="stylesheet" href="style.css">
-    <script src="./models/world.class.js"></script>
+    
+
+</head>
+
+<body onload="init()">
+
+    <h1>Sharkie</h1>
+
+    <div class="cancas-div">
+        <canvas id="canvas" width="720px" height="480px"></canvas>
+
+        <div class="button-top-div">
+            <button id="sound-btn" onclick="playSound()">
+                <img id="sound-btn-img" class="btn-img" src="./img/volume-up-2-xxl.png" alt="">
+            </button>
+            <button onclick="fullscreen()">
+                <img class="btn-img" src="./img/fullscreen-12-xxl.png" alt="">
+            </button>
+        </div>
+
+        <div class="move-btn">
+            <div class="move-btn-top">
+                <button id="up-btn">
+                    <img class="btn-img" src="./img/arrow-204-xxl-up.png" alt="">
+                </button>
+            </div>
+
+            <div class="move-btn-bottom">
+                <button id="left-btn">
+                    <img id="left-btn-img" class="btn-img" src="./img/arrow-204-xxl-left.png" alt="">
+                </button> <button id="down-btn">
+                    <img id="down-btn-img" class="btn-img" src="./img/arrow-204-xxl.png" alt="">
+                </button> <button id="right-btn">
+                    <img id="right-btn-img" class="btn-img" src="./img/arrow-204-xxl-right.png" alt="">
+                </button>
+            </div>
+        </div>
+
+        <div class="attack-btn">
+            <button class="bubble-btn" id="bubble-btn">
+                <p>Bubble</p>
+            </button> <button id="fin-slap-btn">
+                <p>Fin slap</p>
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+<script src="./models/world.class.js"></script>
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/drawable-objects/static-objects.class.js"></script>
@@ -41,17 +95,4 @@
     <script src="./models/drawable-objects/status/status-coins.class.js"></script>
     <script src="./models/drawable-objects/status/status-poison.class.js"></script>
     <script src="./models/drawable-objects/movable-objects/bubble.class.js"></script>
-
-</head>
-<body onload="init()">
-    
-    <h1>Sharkie</h1>
-
-    <canvas id="canvas" width="720px" height="480px">
-    </canvas>
-
-    <button onclick="playSound()">Play Sound</button>
-
-
-</body>
 </html>

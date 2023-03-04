@@ -18,39 +18,63 @@ let ocean5 = new Audio('audio/ocean-5.mp3');
 let underwater = new Audio('audio/underwater.mp3');
 
 function init() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-
+    initSound();
 }
 
-function playSound() {
+function startGame() {
+    stopIntervals(sharkieIntervalls);
+    stopIntervals(endBossIntervalls);
+    stopIntervals(intervalIds);
+    canvas = document.getElementById('canvas');
+    initLevel1();
+    world = new World(canvas, keyboard);
+}
+
+function initSound() {
     music.loop = true;
-    music.play();
-    music.volume = 0.05;
+    music.volume = 0.2;
 
     ocean1.loop = true;
-    ocean1.play();
     ocean1.volume = 0.1;
 
     ocean2.loop = true;
-    ocean2.play();
     ocean2.volume = 0.5;
 
     ocean3.loop = true;
-    ocean3.play();
     ocean3.volume = 1;
 
     ocean4.loop = true;
-    ocean4.play();
     ocean4.volume = 0.3;
 
     ocean5.loop = true;
-    ocean5.play();
     ocean5.volume = 0.3;
 
     underwater.loop = true;
-    underwater.play();
     underwater.volume = 1;
+}
+
+function playSound() {
+    music.play();
+    ocean1.play();
+    ocean2.play();
+    ocean3.play();
+    ocean4.play();
+    ocean5.play();
+    underwater.play();
+    document.getElementById('sound-btn').setAttribute("onclick", "pauseSound()");
+    document.getElementById('sound-btn-img').src = "./img/mute-xxl.png";
+}
+
+function pauseSound() {
+    music.pause();
+    ocean1.pause();
+    ocean2.pause();
+    ocean3.pause();
+    ocean4.pause();
+    ocean5.pause();
+    underwater.pause();
+    document.getElementById('sound-btn').setAttribute("onclick", "playSound()");
+    document.getElementById('sound-btn-img').src = "./img/volume-up-2-xxl.png";
 }
 
 // music.addEventListener('timeupdate', function(){
@@ -65,7 +89,7 @@ window.addEventListener('onkeydown', (event) => {
     console.log(event);
 })
 
-function stoppableSarkieInterval(fn, intervall) {
+function stoppableSharkieInterval(fn, intervall) {
     let id = setInterval(fn, intervall);
     sharkieIntervalls.push(id);
 }
@@ -79,3 +103,22 @@ function stoppableInterval(fn, intervall) {
     let id = setInterval(fn, intervall);
     intervalIds.push(id);
 }
+
+function stopIntervals(intervallIdArray) {
+    intervallIdArray.forEach(clearInterval);
+}
+
+function fullscreen() {
+    let canvas = document.getElementById('canvas');
+    openFullscreen(canvas)
+}
+
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }

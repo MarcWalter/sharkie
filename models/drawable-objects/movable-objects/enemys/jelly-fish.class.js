@@ -22,7 +22,7 @@ class JellyFish extends Enemy {
     }
 
     animateJellyFish(t) {
-        setInterval(() => {
+        stoppableInterval(() => {
             if (!this.isDead()) {
                 this.animate(this.IMAGES_ANIMATION);
             }
@@ -31,7 +31,7 @@ class JellyFish extends Enemy {
 
     animateDeadJellyFish() {
 
-        setInterval(() => {
+        stoppableInterval(() => {
             if (this.isDead() && this.y >= -15) {
                 this.animate(this.IMAGES_DEAD);
                 this.y += -7;

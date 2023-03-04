@@ -9,7 +9,7 @@ class StatusBarCoins extends StatusBar {
         './img/4. Marcadores/green/Coin/40_copia_4.png',
         './img/4. Marcadores/green/Coin/60_copia_4.png',
         './img/4. Marcadores/green/Coin/80_copia_4.png',
-        './img/4. Marcadores/green/Coin/100_copia_4.png'      
+        './img/4. Marcadores/green/Coin/100_copia_4.png'
     ];
 
     constructor() {
@@ -21,7 +21,7 @@ class StatusBarCoins extends StatusBar {
 
     updateBarStatus() {
         let imagePath = this.IMAGES[0];
-            setInterval(() => {
+        stoppableInterval(() => {
             this.value = world.sharkie.coins;
             imagePath = this.IMAGES[this.value];
             this.img = this.imgCache[imagePath];

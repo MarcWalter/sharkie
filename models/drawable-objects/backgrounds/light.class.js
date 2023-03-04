@@ -8,7 +8,7 @@ class Light extends Background {
     }
 
     setX() {
-        setInterval(() => {
+        stoppableInterval(() => {
             this.x = xPositionSharky - 500;
         }, 1000/60);
     }

@@ -14,7 +14,7 @@ class StatusCoins extends Status {
     }
 
     updateCoinStatus() {
-        setInterval(() => {
+        stoppableInterval(() => {
             this.world.ctx.fillText("Hello World", 200, 200);
         }, 1000);
     }

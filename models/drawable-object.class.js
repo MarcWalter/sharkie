@@ -40,7 +40,7 @@ class DrawableObject {
      }
   
      animateSingleTurn(IMAGES, t) {
-        clearInterval(this.sharkieIntervall);
+      stopIntervals(sharkieIntervalls);
         this.currentImg = 0;
   
         let currentIntervall = setInterval(() => {

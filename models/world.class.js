@@ -83,7 +83,7 @@ class World {
     }
 
     setBackgrounds() {
-        setInterval(() => {
+        stoppableInterval(() => {
             if (this.sharkie.x > 350) {
                 this.backgrounds[0].x = 719;
             }
@@ -120,7 +120,7 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        stoppableInterval(() => {
             this.checkCollisions();
             this.createBubble();
         }, 50);

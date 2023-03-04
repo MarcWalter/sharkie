@@ -29,7 +29,7 @@ class Bubble extends MovableObject {
     }
 
     chooseBubbleSort() {
-        setInterval(() => {
+        stoppableInterval(() => {
             if (world.sharkie.poison >= 5) {
                 this.img = this.imgCache['img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png'];
             } else {
@@ -52,7 +52,7 @@ class Bubble extends MovableObject {
     }
 
     applyPhysics() {
-        setInterval(() => {
+        stoppableInterval(() => {
             if (this.y > 0 || this.speedY > 0) { //appy bouyancy
                 this.y -= this.speedY;
             }
@@ -69,7 +69,7 @@ class Bubble extends MovableObject {
     }
 
     bubbleDestroy() {
-        setInterval(() => {
+        stoppableInterval(() => {
             world.level.enemies.forEach(enemy => {
                 if (this.isColliding(enemy)) {
                         this.y = -100;

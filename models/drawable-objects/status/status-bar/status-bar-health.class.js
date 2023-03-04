@@ -20,8 +20,8 @@ class StatusBarHealth extends StatusBar {
 
     updateBarStatus() {
         let imagePath = this.IMAGES[0];
-            setInterval(() => {
-            this.value = Math.round(world.sharkie.energy/20);
+        stoppableInterval(() => {
+            this.value = Math.round(world.sharkie.energy / 20);
             if (this.value < 0) {
                 this.value = 0;
             }

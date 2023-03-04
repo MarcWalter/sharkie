@@ -27,7 +27,7 @@ class StaticObjects extends DrawableObject {
 
     setX() {
         let position = xPositionSharky + Math.random() * 7200 * 3 - 4320;
-        if (position < xPositionSharky - 350 || position > xPositionSharky + 750) { // avoid sharkie
+        if (position < xPositionSharky - 750 || position > xPositionSharky + 750) { // avoid sharkie
            this.x = position;
         }
         else {
@@ -36,7 +36,7 @@ class StaticObjects extends DrawableObject {
      }
 
     respornIfFarAway() {
-        setInterval(() => {
+        stoppableInterval(() => {
             if (this.x < xPositionSharky - 2880 || this.x > xPositionSharky + 4320) {
                 this.setX();
             }
@@ -44,7 +44,7 @@ class StaticObjects extends DrawableObject {
     }
 
     animateStaticObject(t) {
-        setInterval(() => {
+        stoppableInterval(() => {
             this.animate(this.IMAGES_ANIMATION);
         }, t);
     }

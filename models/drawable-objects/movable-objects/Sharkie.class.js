@@ -152,11 +152,7 @@ class Sharkie extends MovableObject {
 
         this.x = this.x_start;
         this.loadAnimationImages();
-        this.animateSharkie();
-        this.moveSharkieRight(5); //2.5
-        this.moveSharkieLeft(5);
-        this.moveSharkieUp(5);
-        this.moveSharkieDown(5);
+        this.restartAnimation();
     }
 
     importKeyboard() {
@@ -182,7 +178,7 @@ class Sharkie extends MovableObject {
     }
 
     animateSharkie() {
-        this.sharkieIntervall = setInterval(() => {
+        stoppableSharkieInterval(() => {
             if (this.isDead()) {
                 this.sharkieDeadAnimation();
             }
@@ -207,8 +203,16 @@ class Sharkie extends MovableObject {
         }, 80)
     }
 
+    restartAnimation() {
+        this.animateSharkie();
+        this.moveSharkieRight(5); //2.5
+        this.moveSharkieLeft(5);
+        this.moveSharkieUp(5);
+        this.moveSharkieDown(5);
+     }
+
     moveSharkieRight(speed) {
-        setInterval(() => {
+        stoppableSharkieInterval(() => {
             if ((this.world.keyboard.D || this.world.keyboard.RIGHT) && this.movable && !this.isDead()) {
                 this.x += speed;
                 this.otherDirection = false;
@@ -218,7 +222,7 @@ class Sharkie extends MovableObject {
     }
 
     moveSharkieLeft(speed) {
-        setInterval(() => {
+        stoppableSharkieInterval(() => {
             if ((this.world.keyboard.A || this.world.keyboard.LEFT) && this.movable && !this.isDead()) {
                 this.x -= speed;
                 this.otherDirection = true;
@@ -228,7 +232,7 @@ class Sharkie extends MovableObject {
     }
 
     moveSharkieUp(speed) {
-        setInterval(() => {
+        stoppableSharkieInterval(() => {
             if (((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100 && this.movable && !this.isDead())) {
                 this.y -= speed;
             }
@@ -237,7 +241,7 @@ class Sharkie extends MovableObject {
     }
 
     moveSharkieDown(speed) {
-        setInterval(() => {
+        stoppableSharkieInterval(() => {
             if ((this.world.keyboard.S || this.world.keyboard.DOWN) && this.y < 355 && this.movable && !this.isDead()) {
                 this.y += speed;
             }
@@ -246,10 +250,10 @@ class Sharkie extends MovableObject {
 
     sharkieDeadAnimation() {
         if (this.dead == false) {
-            clearInterval(this.sharkieIntervall);
+            stopIntervals(sharkieIntervalls);
             this.animateSingleTurn(this.IMAGES_DEAD, 100);
             setTimeout(() => {
-                setInterval(() => {
+                stoppableSharkieInterval(() => {
                     if (this.y > -90) {
                         this.y -= 2;
                     }
@@ -274,7 +278,7 @@ class Sharkie extends MovableObject {
 
     hurtAnimationByEnemyType(enemy) {
         let i = 1;
-        clearInterval(this.sharkieIntervall);
+        stopIntervals(sharkieIntervalls);
         this.movable = false;
         let hurtAnimationIntervall = setInterval(() => {
             if (enemy instanceof PufferFish && i <= 10) {
@@ -304,7 +308,7 @@ class Sharkie extends MovableObject {
     checkNearPufferFish() {
         world.level.enemies.forEach(obj => {
             if (this.isNear(obj)) {
-                console.log("Enemy hit");
+                console.log("Hit Pufferfish");
                 obj.hitBySharkie();
                 this.finSlapAudio.play();
             }

@@ -21,7 +21,7 @@ class StatusBarPoison extends StatusBar {
 
     updateBarStatus() {
         let imagePath = this.IMAGES[0];
-            setInterval(() => {
+        stoppableInterval(() => {
             this.value = world.sharkie.poison;
             imagePath = this.IMAGES[this.value];
             this.img = this.imgCache[imagePath];
