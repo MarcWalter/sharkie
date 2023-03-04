@@ -34,12 +34,11 @@ function startGame() {
 function removeCards() {
     document.getElementById('victory-btn').classList.add('d-none');
     document.getElementById('game-over-btn').classList.add('d-none');
+    document.getElementById('intro').classList.add('d-none');
 
     setTimeout(() => {
-        document.getElementById('intro').classList.add('d-none');
         document.getElementById('victory-card').classList.add('d-none');
         document.getElementById('game-over-card').classList.add('d-none');
-
     }, 3000);
 }
 
