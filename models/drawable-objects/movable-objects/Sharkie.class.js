@@ -155,16 +155,6 @@ class Sharkie extends MovableObject {
         this.restartAnimation();
     }
 
-    importKeyboard() {
-        setTimeout(() => {
-            if (this.world.keyboard.D == true) {
-                this.D = true;
-            } else {
-                this.D = true;
-            }
-        }, 200);
-    }
-
     loadAnimationImages() {
         this.loadImage('./img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_ANIMATION);
@@ -209,7 +199,7 @@ class Sharkie extends MovableObject {
         this.moveSharkieLeft(5);
         this.moveSharkieUp(5);
         this.moveSharkieDown(5);
-     }
+    }
 
     moveSharkieRight(speed) {
         stoppableSharkieInterval(() => {

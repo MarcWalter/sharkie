@@ -8,7 +8,7 @@ class Enemy extends MovableObject {
     }
 
     changeY(speed) {
-        setInterval(() => {
+        stoppableInterval(() => {
             let n = Math.random();
 
             if (this.y > 430) { //fish cannot reach bottom
@@ -42,7 +42,7 @@ class Enemy extends MovableObject {
      }
 
     respornIfFarAway() {
-        setInterval(() => {
+        stoppableInterval(() => {
             if (this.x < xPositionSharky - 2880 || this.x > xPositionSharky + 4320) {
                 this.setX();
             }

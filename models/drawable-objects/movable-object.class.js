@@ -17,7 +17,7 @@ class MovableObject extends DrawableObject {
    }
 
    moveRight(speed) {
-      setInterval(() => {
+      stoppableInterval(() => {
          if (!this.isDead()) {
             this.x += speed;
          }
@@ -25,7 +25,7 @@ class MovableObject extends DrawableObject {
    }
 
    moveLeft(speed) {
-      setInterval(() => {
+      stoppableInterval(() => {
          if (!this.isDead()) {
             this.x -= speed; 
          }
@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
    }
 
    moveY(speed) {
-      setInterval(() => {
+      stoppableInterval(() => {
          if (!this.isDead()) {
             this.y -= this.yMove;
          }

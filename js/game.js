@@ -28,6 +28,9 @@ function startGame() {
     canvas = document.getElementById('canvas');
     initLevel1();
     world = new World(canvas, keyboard);
+    setTimeout(() => {
+        document.getElementById('intro').classList.add('d-none');
+    }, 3000);
 }
 
 function initSound() {
