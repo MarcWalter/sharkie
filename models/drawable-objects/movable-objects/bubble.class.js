@@ -48,7 +48,6 @@ class Bubble extends MovableObject {
             this.y = yPositionSharky + 70;
             this.speedX = this.speedX * (-1);
         }
-
     }
 
     applyPhysics() {
@@ -70,12 +69,13 @@ class Bubble extends MovableObject {
 
     bubbleDestroy() {
         stoppableInterval(() => {
-            world.level.enemies.forEach(enemy => {
-                if (this.isColliding(enemy)) {
+            setTimeout(() => {
+                world.level.enemies.forEach(enemy => {
+                    if (this.isColliding(enemy)) {
                         this.y = -100;
-                }
-            });
-
-        }, 100);
+                    }
+                });
+            }, 200);
+        }, 50);
     }
 }

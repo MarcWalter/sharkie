@@ -1,5 +1,5 @@
 class StatusPoison extends Status {
-    
+
     x = 7;
     y = 70;
     height = 40;

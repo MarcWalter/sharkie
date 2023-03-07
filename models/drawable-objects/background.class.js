@@ -5,17 +5,15 @@ class Background extends DrawableObject {
     height = 480;
     xStart = 0;
 
-
     constructor(xStart) {
         super();
         this.setX();
         this.xStart = xStart;
     }
 
-     setX() {
+    setX() {
         stoppableInterval(() => {
             this.x = this.xStart + backgroundPosition * this.width;
         }, 1000);
     }
-
 }

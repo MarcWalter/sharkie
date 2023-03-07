@@ -11,7 +11,6 @@ class Coin extends StaticObjects {
         './img/4. Marcadores/1. Coins/4.png'
     ];
 
-
     constructor() {
         super();
         this.loadImage('img/4. Marcadores/1. Coins/1.png');
@@ -28,7 +27,6 @@ class Coin extends StaticObjects {
         if (world.sharkie.coins < 5) {
             this.setX();
             world.sharkie.coins += 1;
-            console.log('coins', world.sharkie.coins);
             this.collectCoinAudio.play();
         }
     }

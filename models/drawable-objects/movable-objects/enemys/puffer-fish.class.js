@@ -6,6 +6,7 @@ class PufferFish extends Enemy {
     i = 1;
     fishType = 1 + Math.round(Math.random() * 2);
     hitPufferFishAudio = new Audio('./audio/damage-1.mp3');
+    dead = false;
 
     IMAGES_ANIMATION = [
         `img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/${this.fishType}.swim1.png`,
@@ -56,22 +57,38 @@ class PufferFish extends Enemy {
     }
 
     animatePufferFish(t) {
-        this.FishAnimationIntervall = setInterval(() => {
-            if (this.transformation && this.i <= 5) {
-                this.img = this.imgCache[`img/2.Enemy/1.Puffer fish (3 color options)/2.transition/${this.fishType}.transition${this.i}.png`];
-                this.i++
+        this.FishAnimationIntervall = stoppableInterval(() => {
+            if (this.dead) {
+                this.animatePufferFishDead();
+            }
+            else if (this.transformation && this.i <= 5) {
+               this.animatePufferFishTranformation();
             }
             else if (this.transformation) {
                 this.animate(this.IMAGES_BUBBLE_SWIM);
             }
             else if (this.transformation == false && this.i > 1) {
-                this.i = this.i - 1;
-                this.img = this.imgCache[`img/2.Enemy/1.Puffer fish (3 color options)/2.transition/${this.fishType}.transition${this.i}.png`];
+                this.animatePufferFishRetransformation();
             }
             else {
                 this.animate(this.IMAGES_ANIMATION);
             }
         }, t);
+    }
+
+    animatePufferFishDead() {
+        let path = this.IMAGES_DEAD[this.fishType - 1]
+        this.img = this.imgCache[path];   
+    }
+
+    animatePufferFishTranformation() {
+        this.img = this.imgCache[`img/2.Enemy/1.Puffer fish (3 color options)/2.transition/${this.fishType}.transition${this.i}.png`];
+        this.i++;
+    }
+
+    animatePufferFishRetransformation() {
+        this.i = this.i - 1;
+        this.img = this.imgCache[`img/2.Enemy/1.Puffer fish (3 color options)/2.transition/${this.fishType}.transition${this.i}.png`];
     }
 
     resetTrasformation() {
@@ -111,15 +128,14 @@ class PufferFish extends Enemy {
             let path = this.IMAGES_DEAD[this.fishType - 1]
             this.img = this.imgCache[path];
             this.hitAnimation();
+            this.dead = true;
         }, 200);
     }
 
     hitAnimation() {
-      
         let hitAniIntervall = setInterval(() => {
             if (this.y > -10) {
                 this.y -= 2;
-                console.log(this.y);
             } else {
                 clearInterval(hitAniIntervall);
             }

@@ -4,7 +4,5 @@ class Water extends Background {
 
     constructor(xStart) {
         super(xStart).loadImage(this.imgPath);
-    }
-
-    
+    }   
 }

@@ -5,5 +5,4 @@ class Floor extends Background {
     constructor(xStart) {
         super(xStart).loadImage(this.imgPath);
     }
-
 }

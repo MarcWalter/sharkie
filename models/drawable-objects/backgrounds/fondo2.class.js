@@ -5,5 +5,4 @@ class Fondo2 extends Background {
     constructor(xStart) {
         super(xStart).loadImage(this.imgPath);
     }
-
 }

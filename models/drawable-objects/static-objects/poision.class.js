@@ -20,7 +20,6 @@ class Poison extends StaticObjects {
         './img/4. Marcadores/Posión/Animada/8.png'
     ];
 
-
     constructor() {
         super();
         this.loadImage('./img/4. Marcadores/Posión/Animada/1.png');
@@ -37,7 +36,6 @@ class Poison extends StaticObjects {
         if (world.sharkie.poison < 5) {
             this.setX();
             world.sharkie.poison += 1;
-            console.log('poison', world.sharkie.poison);
             this.collectPoisonAudio.play();
         }
     }

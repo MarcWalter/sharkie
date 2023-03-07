@@ -18,7 +18,6 @@ class JellyFish extends Enemy {
     constructor() {
         super();
         this.swim();
-        this.animateDeadJellyFish();
     }
 
     animateJellyFish(t) {
@@ -30,15 +29,12 @@ class JellyFish extends Enemy {
     }
 
     animateDeadJellyFish() {
-
         stoppableInterval(() => {
             if (this.isDead() && this.y >= -15) {
                 this.animate(this.IMAGES_DEAD);
                 this.y += -7;
-                console.log(this.y);
             }
         }, 100);
-
     }
 
     swim() {
@@ -47,7 +43,6 @@ class JellyFish extends Enemy {
     }
 
     hitSharkie() {
-
         if ((new Date().getTime() - this.lastHit) >= 3000 || this.lastHit == 0) {
             world.sharkie.hit(20);
             this.hitJellyFishAudio.play();
@@ -61,8 +56,6 @@ class JellyFish extends Enemy {
     }
 
     hitByBubble() {
-        console.log('bubble hit');
         this.energy = 0;
-        console.log(this.energy);
     }
 }

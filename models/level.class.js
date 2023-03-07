@@ -7,13 +7,12 @@ class Level {
         this.enemies = enemies;
         this.backgrounds = backgrounds;
         this.staticObjects = staticObjects;
-        // this.createEndBoss();
     }
 
-   createEndBoss() {
-    setTimeout(() => {
-        let endBoss = new EndBoss;
-        world.level.push(endBoss);
-    }, 3000);
-   }
+    createEndBoss() {
+        setTimeout(() => {
+            let endBoss = new EndBoss;
+            world.level.push(endBoss);
+        }, 3000);
+    }
 }

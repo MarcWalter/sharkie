@@ -8,10 +8,7 @@
     <title>Sharkie</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon-1.png">
 
-
     <link rel="stylesheet" href="style.css">
-
-
 </head>
 
 <body onload="init()">
@@ -58,11 +55,15 @@
 
         <div id="intro" class="intro">
             <div class="introcard">
-                <p>Baby shark is busy collecting <b>five coins</b>, like every morning. Every morning since Sharkie can remember.
+                <p>Baby shark is busy collecting <b>five coins</b>, like every morning. Every morning since Sharkie can
+                    remember.
                     Probably three.</p>
-                <p>He has never met the danger that Mama shark seems to evoke. Why should this time be any different?</p>
+                <p>He has never met the danger that Mama shark seems to evoke. Why should this time be any different?
+                </p>
                 <p>
-                    But just in case, you can escape with the <b>W-A-S-D</b> keys or defeat the evil with your fin punch (<b>space</b>) or an air bubble (<b>J</b>). You need five poison bottles to defeat a killer whale.
+                    But just in case, you can escape with the <b>W-A-S-D</b> keys or defeat the evil with your fin punch
+                    (<b>space</b> to hit puffer fish) or an air bubble (<b>J</b> to hit jelly fish). You need five
+                    poison bottles to defeat a killer whale.
                     You don't need luck. You are strong, the terror of the seas, almost ten days old.
                 </p>
                 <button id="intro-btn" onclick="startGame()">Try without luck</button>
@@ -70,18 +71,16 @@
         </div>
         <div id="victory-card" class="victory-card d-none">
             <img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
-            <button id="victory-btn" onclick="startGame()">Try next morning</button>
+            <button id="victory-btn" onclick="startGame(), hideButtons()">Try next morning</button>
         </div>
         <div id="game-over-card" class="game-over-card d-none">
             <img src="./img/6.Botones/Tittles/Game Over/Recurso 13.png" alt="">
-            <button id="game-over-btn" onclick="startGame()">Try it with another disobedient sibling</button>
+            <button id="game-over-btn" onclick="startGame(), hideButtons()">Try it with another disobedient sibling</button>
+        </div>
+        <div id="portrait-warning" class="postrait-warning">
+            <p>This game is only playable in landscape mode</p>
         </div>
     </div>
-
-    
-
-
-
 </body>
 
 <script src="./models/world.class.js"></script>
@@ -96,7 +95,6 @@
 <script src="./models/drawable-objects/movable-objects/enemys/jelly-fish/jelly-fish-dangerous.class.js"></script>
 <script src="./models/drawable-objects/movable-objects/enemys/puffer-fish.class.js"></script>
 <script src="./models/drawable-objects/movable-objects/Sharkie.class.js"></script>
-<script src="./js/game.js"></script>
 <script src="./models/drawable-objects/background.class.js"></script>
 <script src="./models/drawable-objects/backgrounds/water.class.js"></script>
 <script src="./models/drawable-objects/backgrounds/fondo2.class.js"></script>
@@ -116,5 +114,6 @@
 <script src="./models/drawable-objects/status/status-coins.class.js"></script>
 <script src="./models/drawable-objects/status/status-poison.class.js"></script>
 <script src="./models/drawable-objects/movable-objects/bubble.class.js"></script>
+<script src="./js/game.js"></script>
 
 </html>

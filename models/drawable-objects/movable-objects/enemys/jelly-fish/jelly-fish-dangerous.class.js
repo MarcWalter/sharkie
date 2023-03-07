@@ -8,14 +8,14 @@ class JellyFishDangerous extends JellyFish {
         `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`,
         `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 2.png`,
         `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 3.png`,
-        `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 4.png`       
+        `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 4.png`
     ];
 
     IMAGES_DEAD = [
-        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/1.png`,
-        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/2.png`,
-        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/3.png`,
-        `img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/4.png`
+        `./img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/1.png`,
+        `./img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/2.png`,
+        `./img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/3.png`,
+        `./img/2.Enemy/2 Jelly fish/Dead/${this.fishTypeArray[this.fishType]}/4.png`
     ];
 
     IMAGE_PATH = `./img/2.Enemy/2 Jelly fish/Súper dangerous/${this.fishTypeArray[this.fishType]} 1.png`;
@@ -28,6 +28,6 @@ class JellyFishDangerous extends JellyFish {
         this.loadImages(this.IMAGES_ANIMATION);
         this.loadImages(this.IMAGES_DEAD);
         this.animateJellyFish(this.animationSpeed);
+        this.animateDeadJellyFish();
     }
-   
 }

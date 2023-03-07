@@ -26,6 +26,6 @@ class JellyFishRegular extends JellyFish {
         this.loadImages(this.IMAGES_ANIMATION);
         this.loadImages(this.IMAGES_DEAD);
         this.animateJellyFish(this.animationSpeed);
+        this.animateDeadJellyFish();
     }
-
 }

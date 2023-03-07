@@ -23,7 +23,6 @@ class Barrier extends StaticObjects {
     ];
     barrier;
 
-
     constructor() {
         super();
         this.barrier = this.BARRIERS[Math.round(Math.random() * 2)];

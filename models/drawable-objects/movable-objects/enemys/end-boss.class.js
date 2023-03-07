@@ -85,15 +85,19 @@ class EndBoss extends MovableObject {
 
     endBossAppears() {
         setTimeout(() => {
-            this.y = 0;
-            this.x = xPositionSharky + 650;
-            if (world.sharkie.otherDirection == true) {
-                this.x = xPositionSharky + 250;
-            }
+            this.startPositionEndBoss();
             this.setXPositionEndBoss();
             this.setYPositionEndBoss();
             this.animateEndBoss();
         }, 40000);
+    }
+
+    startPositionEndBoss() {
+        this.y = 0;
+        this.x = xPositionSharky + 650;
+        if (world.sharkie.otherDirection == true) {
+            this.x = xPositionSharky + 250;
+        }
     }
 
     animateEndBoss() {
@@ -138,22 +142,29 @@ class EndBoss extends MovableObject {
 
     setYPositionEndBoss() {
         stoppableInterval(() => {
-            if (this.y >= yPositionSharky - 100 && !world.sharkie.isDead() && !this.isDead()) {
-                if (this.x >= xPositionSharky + 200) {
-                    this.y -= 4;
-                } else {
-                    this.y -= 15;
-                }
-            }
-
-            if (this.y <= yPositionSharky - 100 && !world.sharkie.isDead() && !this.isDead()) {
-                if (this.x >= xPositionSharky + 200) {
-                    this.y += 4;
-                } else {
-                    this.y += 15;
-                }
-            }
+            this.followSharkieDown();
+            this.followSharkieUp();
         }, 50);
+    }
+
+    followSharkieDown() {
+        if (this.y >= yPositionSharky - 100 && !world.sharkie.isDead() && !this.isDead()) {
+            if (this.x >= xPositionSharky + 200) {
+                this.y -= 4;
+            } else {
+                this.y -= 15;
+            }
+        }
+    }
+
+    followSharkieUp() {
+        if (this.y <= yPositionSharky - 100 && !world.sharkie.isDead() && !this.isDead()) {
+            if (this.x >= xPositionSharky + 200) {
+                this.y += 4;
+            } else {
+                this.y += 15;
+            }
+        }
     }
 
     endBossAttack() {
@@ -194,6 +205,4 @@ class EndBoss extends MovableObject {
             }
         }
     }
-    
-
 }

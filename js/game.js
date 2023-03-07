@@ -7,7 +7,7 @@ let yPositionSharky = 150;
 let sharkieIntervalls = [];
 let endBossIntervalls = [];
 let intervalIds = [];
-
+let gameTimeCounter = 0;
 
 let music = new Audio('audio/music-1.mp3');
 let ocean1 = new Audio('audio/ocean-1.mp3');
@@ -22,20 +22,37 @@ function init() {
 }
 
 function startGame() {
+    setTimeout(() => {
+        stoppAllIntervals();
+        countTimeRunningGame();
+        canvas = document.getElementById('canvas');
+        initLevel1();
+        world = new World(canvas, keyboard);
+        removeCards();
+    }, 2000);
+}
+
+function stoppAllIntervals() {
     stopIntervals(sharkieIntervalls);
     stopIntervals(endBossIntervalls);
     stopIntervals(intervalIds);
-    canvas = document.getElementById('canvas');
-    initLevel1();
-    world = new World(canvas, keyboard);
-    removeCards();
 }
 
-function removeCards() {
+function countTimeRunningGame() {
+    gameTimeCounter = 0;
+    setInterval(() => {
+        gameTimeCounter++;
+    }, 1000);
+}
+
+function hideButtons() {
     document.getElementById('victory-btn').classList.add('d-none');
     document.getElementById('game-over-btn').classList.add('d-none');
     document.getElementById('intro').classList.add('d-none');
+}
 
+function removeCards() {
+    hideButtons();
     setTimeout(() => {
         document.getElementById('victory-card').classList.add('d-none');
         document.getElementById('game-over-card').classList.add('d-none');
@@ -43,9 +60,8 @@ function removeCards() {
 }
 
 function stopGame() {
-    stopIntervals(sharkieIntervalls);
-    stopIntervals(endBossIntervalls);
-    stopIntervals(intervalIds);
+    stoppAllIntervals();
+    world.level.enemies = [];
 }
 
 function initSound() {
@@ -94,18 +110,6 @@ function pauseSound() {
     document.getElementById('sound-btn').setAttribute("onclick", "playSound()");
     document.getElementById('sound-btn-img').src = "./img/volume-up-2-xxl.png";
 }
-
-// music.addEventListener('timeupdate', function(){
-//     let buffer = 1
-//     if(this.currentTime > this.duration - buffer){
-//         this.currentTime = 0
-//         this.play()
-//     }
-// });
-
-window.addEventListener('onkeydown', (event) => {
-    console.log(event);
-})
 
 function stoppableSharkieInterval(fn, intervall) {
     let id = setInterval(fn, intervall);

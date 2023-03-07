@@ -10,10 +10,9 @@ class World {
     statusBarHealth = new StatusBarHealth();
     statusBarCoins = new StatusBarCoins();
     statusBarPoison = new StatusBarPoison();
-    // statusCoins = new StatusCoins();
-    // statusPoison = new StatusPoison();
     bubbles = [];
     lastBubble = 0;
+    gameEnd = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -31,7 +30,6 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgrounds);
@@ -48,31 +46,23 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
-
     }
 
     addToMap(object) {
         if (object.otherDirection) {
             this.flipImage(object);
         }
-        try {
-            this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
 
-        } catch (error) {
-            console.log(error);
-            console.log(object);
-        }
-        // this.drawFrame(object);
-        // this.setCollidingPosition(object); // use instead of function below if check collisionwith frame
+        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
 
         if (object.otherDirection) {
             this.flipImageBack(object);
         }
+
         this.setCollidingPosition(object);
     }
 
@@ -102,16 +92,6 @@ class World {
         this.ctx.restore();
     }
 
-    drawFrame(object) {
-        if (object instanceof MovableObject || object instanceof StaticObjects) {
-            this.ctx.beginPath();
-            this.ctx.lineWidth = '2';
-            this.ctx.strokeStyle = 'blue';
-            this.ctx.rect(object.xColliding, object.yColliding, object.widthColliding, object.heightColliding);
-            this.ctx.stroke();
-        }
-    }
-
     setCollidingPosition(object) {
         object.xColliding = object.x + object.width * object.xCollidingFactor;    // offset for collision detection
         object.yColliding = object.y + object.height * object.yCollidingFactor;
@@ -128,30 +108,40 @@ class World {
     }
 
     checkCollisions() {
+        this.checkEnemyCollisions();
+        this.checkObjectCollisions();
+        this.checkBubbleCollisions();
+    }
+
+    checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.sharkie.isColliding(enemy) && !this.sharkie.isDead()) {
                 enemy.hitSharkie();
             }
         });
+    }
+
+    checkObjectCollisions() {
         this.level.staticObjects.forEach((object) => {
             if (this.sharkie.isColliding(object) && (object instanceof Coin || object instanceof Poison) && !this.sharkie.isDead()) {
                 object.collect();
             }
         });
+    }
+
+    checkBubbleCollisions() {
         this.bubbles.forEach(bubble => {
             this.level.enemies.forEach(enemy => {
                 if ((enemy instanceof JellyFish || enemy instanceof EndBoss) && enemy.isColliding(bubble)) {
                     enemy.hitByBubble();
                 }
             });
-
         });
     }
 
     createBubble() {
         if (this.keyboard.J && (this.lastBubble == 0 || ((new Date().getTime() - this.lastBubble) > 1000))) {
             this.lastBubble = new Date().getTime();
-            console.log(this.lastBubble);
             setTimeout(() => {
                 let bubble = new Bubble();
                 this.bubbles.push(bubble)
@@ -160,22 +150,29 @@ class World {
     }
 
     checkGameEnd() {
-       
-            if (this.sharkie.energy <= 0)  {
-                setTimeout(() => {
-                    stopGame();
-                    document.getElementById('game-over-card').classList.remove('d-none');
-                    document.getElementById('game-over-btn').classList.remove('d-none');
-                }, 3000);
-            }
-            if (this.sharkie.energy > 0 && this.level.enemies[0].energy <= 0 && this.sharkie.coins >= 5) {
-                setTimeout(() => {
-                    stopGame();
-                    document.getElementById('victory-card').classList.remove('d-none');
-                    document.getElementById('victory-btn').classList.remove('d-none');
-                }, 3000);
-            }
-        
-        
+        this.checkDefeat();
+        this.checkVictory();
+    }
+
+    checkDefeat() {
+        if (this.sharkie.energy <= 0 && this.gameEnd == false) {
+            this.gameEnd = true;
+            setTimeout(() => {
+                stopGame();
+                document.getElementById('game-over-card').classList.remove('d-none');
+                document.getElementById('game-over-btn').classList.remove('d-none');
+            }, 3000);
+        }
+    }
+
+    checkVictory() {
+        if (this.sharkie.energy > 0 && this.level.enemies[0].energy <= 0 && this.sharkie.coins >= 5 && this.gameEnd == false) {
+            this.gameEnd = true;
+            setTimeout(() => {
+                stopGame();
+                document.getElementById('victory-card').classList.remove('d-none');
+                document.getElementById('victory-btn').classList.remove('d-none');
+            }, 3000);
+        }
     }
 }

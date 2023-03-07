@@ -15,25 +15,19 @@ class StaticObjects extends DrawableObject {
         this.respornIfFarAway();
     }
 
-    // setX() {
-    //     let position =  Math.random() * 7200 * 3 - 4320;
-    //     if (position < 100 || position > 500) { // avoid sharkie
-    //         this.x = position;
-    //     }
-    //     else {
-    //         this.x = position - 600;
-    //     }
-    // }
-
     setX() {
         let position = xPositionSharky + Math.random() * 7200 * 3 - 4320;
-        if (position < xPositionSharky - 750 || position > xPositionSharky + 750) { // avoid sharkie
-           this.x = position;
+        if (this.farEnoughFromSharkie(position)) {
+            this.x = position;
         }
         else {
-           this.x = position - 2000;
+            this.setX();
         }
-     }
+    }
+
+        farEnoughFromSharkie(position) {
+            return position < xPositionSharky - 850 || position > xPositionSharky + 750;
+        }
 
     respornIfFarAway() {
         stoppableInterval(() => {

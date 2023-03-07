@@ -136,6 +136,7 @@ class Sharkie extends MovableObject {
     sharkieIntervall;
     movable = true;
     lastSharkieHit = 0;
+    i = 1;
 
     xCollidingFactor = 0.25;    // offset for collision detection
     yCollidingFactor = 0.53;
@@ -184,7 +185,7 @@ class Sharkie extends MovableObject {
             else if (this.world.keyboard.D == false && this.world.keyboard.A == false % !this.isDead()) {
                 this.animate(this.IMAGES_ANIMATION)
             }
-            else if (this.world.keyboard.D || this.world.keyboard.A || this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            else if (this.world.keyboard.D || this.world.keyboard.A) {
                 this.animate(this.IMAGES_SWIMMING);
             }
 
@@ -195,7 +196,7 @@ class Sharkie extends MovableObject {
 
     restartAnimation() {
         this.animateSharkie();
-        this.moveSharkieRight(5); //2.5
+        this.moveSharkieRight(5);
         this.moveSharkieLeft(5);
         this.moveSharkieUp(5);
         this.moveSharkieDown(5);
@@ -203,7 +204,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieRight(speed) {
         stoppableSharkieInterval(() => {
-            if ((this.world.keyboard.D || this.world.keyboard.RIGHT) && this.movable && !this.isDead()) {
+            if (this.world.keyboard.D && this.movable && !this.isDead()) {
                 this.x += speed;
                 this.otherDirection = false;
                 this.world.camera_x = this.x_start - this.x;
@@ -213,7 +214,7 @@ class Sharkie extends MovableObject {
 
     moveSharkieLeft(speed) {
         stoppableSharkieInterval(() => {
-            if ((this.world.keyboard.A || this.world.keyboard.LEFT) && this.movable && !this.isDead()) {
+            if (this.world.keyboard.A && this.movable && !this.isDead()) {
                 this.x -= speed;
                 this.otherDirection = true;
                 this.world.camera_x = this.x_start - this.x;
@@ -223,16 +224,15 @@ class Sharkie extends MovableObject {
 
     moveSharkieUp(speed) {
         stoppableSharkieInterval(() => {
-            if (((this.world.keyboard.W || this.world.keyboard.UP) && this.y > -100 && this.movable && !this.isDead())) {
+            if ((this.world.keyboard.W && this.y > -100 && this.movable && !this.isDead())) {
                 this.y -= speed;
             }
         }, 1000 / 60)
-
     }
 
     moveSharkieDown(speed) {
         stoppableSharkieInterval(() => {
-            if ((this.world.keyboard.S || this.world.keyboard.DOWN) && this.y < 355 && this.movable && !this.isDead()) {
+            if (this.world.keyboard.S && this.y < 355 && this.movable && !this.isDead()) {
                 this.y += speed;
             }
         }, 1000 / 60)
@@ -242,15 +242,19 @@ class Sharkie extends MovableObject {
         if (this.dead == false) {
             stopIntervals(sharkieIntervalls);
             this.animateSingleTurn(this.IMAGES_DEAD, 100);
-            setTimeout(() => {
-                stoppableSharkieInterval(() => {
-                    if (this.y > -90) {
-                        this.y -= 2;
-                    }
-                }, 200 / 60)
-            }, 500);
+            this.deadSharkieGoesUp();
         }
         this.dead = true;
+    }
+
+    deadSharkieGoesUp() {
+        setTimeout(() => {
+            stoppableSharkieInterval(() => {
+                if (this.y > -90) {
+                    this.y -= 2;
+                }
+            }, 200 / 60)
+        }, 500);
     }
 
     updateSharkyPosition() {
@@ -267,26 +271,33 @@ class Sharkie extends MovableObject {
     }
 
     hurtAnimationByEnemyType(enemy) {
-        let i = 1;
         stopIntervals(sharkieIntervalls);
         this.movable = false;
         let hurtAnimationIntervall = setInterval(() => {
-            if (enemy instanceof PufferFish && i <= 10) {
-                this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${i}.png`];
-                i++
+            if (enemy instanceof PufferFish && this.i <= 10) {
+                this.hurtByPufferFish();
             }
-
-            if ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && i <= 6) {
-                this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/2.Electric shock/${i}.png`];
-                i++
+            if ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && this.i <= 6) {
+                this.hurtbyJellyFish();
             }
-
-            else if ((enemy instanceof PufferFish && i >= 11) || ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && i >= 7)) {
+            else if ((enemy instanceof PufferFish && this.i >= 11) || ((enemy instanceof JellyFishRegular || enemy instanceof JellyFishDangerous) && this.i >= 7)) {
                 clearInterval(hurtAnimationIntervall);
                 this.restartAnimation();
                 this.movable = true;
+                this.i = 1;
             }
-        }, 200);
+        }
+            , 200);
+    }
+
+    hurtByPufferFish() {
+        this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/1.Poisoned/${this.i}.png`];
+        this.i++;
+    }
+
+    hurtbyJellyFish() {
+        this.img = this.imgCache[`./img/1.Sharkie/5.Hurt/2.Electric shock/${this.i}.png`];
+        this.i++;
     }
 
     finSlap() {
@@ -298,7 +309,6 @@ class Sharkie extends MovableObject {
     checkNearPufferFish() {
         world.level.enemies.forEach(obj => {
             if (this.isNear(obj)) {
-                console.log("Hit Pufferfish");
                 obj.hitBySharkie();
                 this.finSlapAudio.play();
             }
